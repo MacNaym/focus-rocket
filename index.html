@@ -22,7 +22,9 @@
     <div class="mini-player" id="miniPlayer">
         <span>🎵</span>
         <span class="mini-player-title" id="miniPlayerTitle">Nessuna musica</span>
-        <button class="mini-player-btn" onclick="pauseMiniPlayer()" title="Pausa/Play">⏸️</button>
+        <button class="mini-player-btn" onclick="previousTrack()" title="Brano precedente">⏮️</button>
+        <button class="mini-player-btn" id="miniPlayerPauseBtn" onclick="pauseMiniPlayer()" title="Pausa/Play">⏸️</button>
+        <button class="mini-player-btn" onclick="nextTrack()" title="Brano successivo">⏭️</button>
         <button class="mini-player-btn" onclick="toggleMiniPlayer()" title="Chiudi">✕</button>
     </div>
 
@@ -317,7 +319,7 @@
                 <!-- CUSTOM TAB -->
                 <div class="music-tab-content" id="tab-custom" style="display:none;">
                     <div class="music-add-custom">
-                        <input type="text" class="input-field" id="customMusicUrl" placeholder="Incolla URL YouTube (es. https://www.youtube.com/watch?v=...) o ID video">
+                                <input type="text" class="input-field" id="customMusicUrl" placeholder="Incolla URL YouTube playlist/video o ID playlist/video">
                         <input type="text" class="input-field" id="customMusicName" placeholder="Nome della playlist (es. Mia Playlist Focus)" style="min-width:180px;">
                         <button class="btn btn-primary btn-sm" onclick="addCustomMusic()">➕ Aggiungi</button>
                     </div>
