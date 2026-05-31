@@ -66,7 +66,7 @@
             return stats.blocks * 10 + stats.minutes * 2 + stats.streak * 5;
         }
 
-        function toggleLeaderboard() {
+        async function toggleLeaderboard() {
             if (settingsVisible) toggleSettings();
             if (musicVisible) toggleMusic();
             if (metricsVisible) toggleMetrics();
@@ -241,7 +241,7 @@
             `).join('');
         }
 
-        function checkAchievements() {
+        async function checkAchievements() {
             const hour = new Date().getHours();
             if (hour >= 22) DB.setSetting('fr_night_owl', '1');
             if (hour < 8) DB.setSetting('fr_early_bird', '1');

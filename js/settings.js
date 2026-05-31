@@ -16,7 +16,7 @@
             if (notif) notificationSettings = JSON.parse(notif);
         }
 
-        function toggleSettings() {
+        async function toggleSettings() {
             // Chiudi altre sezioni
             if (leaderboardVisible) toggleLeaderboard();
             if (musicVisible) toggleMusic();

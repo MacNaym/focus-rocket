@@ -16,7 +16,7 @@
         }
         let currentTab = 'focus';
 
-        function toggleMusic() {
+        async function toggleMusic() {
             // Chiudi altre sezioni
             if (leaderboardVisible) toggleLeaderboard();
             if (settingsVisible) toggleSettings();

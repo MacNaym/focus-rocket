@@ -110,7 +110,7 @@
             grid.innerHTML = html;
         }
 
-        function showDayDetail(dateStr) {
+        async function showDayDetail(dateStr) {
             const data = await getDailyData();
             const dayData = data[dateStr] || { blocks: 0, minutes: 0, completed: 0 };
             const d = new Date(dateStr);
@@ -176,7 +176,7 @@
             renderCalendarPopup();
         }
 
-        function renderCalendarPopup() {
+        async function renderCalendarPopup() {
             const year = calendarPopupDate.getFullYear();
             const month = calendarPopupDate.getMonth();
             const monthNames = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
@@ -255,7 +255,7 @@
             }
         }
 
-        function selectCalendarDay(dateStr) {
+        async function selectCalendarDay(dateStr) {
             if (!calendarPopupSelectedStart || (calendarPopupSelectedStart && calendarPopupSelectedEnd)) {
                 // Start new selection
                 calendarPopupSelectedStart = dateStr;
@@ -290,7 +290,7 @@
             renderCalendarPopup();
         }
 
-        function searchCustomDateRange() {
+        async function searchCustomDateRange() {
             const from = document.getElementById('calendarDateFrom').value;
             const to = document.getElementById('calendarDateTo').value;
 
@@ -338,7 +338,7 @@
             }
         }
 
-        function exportCSV() {
+        async function exportCSV() {
             const data = await getDailyData();
             let csv = 'Data,Blocchi,Minuti,Completati,Pianificati\n';
             Object.entries(data).sort().forEach(([date, d]) => {

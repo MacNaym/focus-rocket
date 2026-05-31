@@ -338,9 +338,9 @@ function stopBodyDoublingSession() {
 
     // Post-session debrief
     const enabled = document.getElementById('bodyDoublingEnabled')?.checked ?? true;
-    if (enabled) {
-        const completed = completedBlocks;
-        const total = totalBlocks;
+    if (enabled && bdConversation.length > 0) {
+        const completed = stats?.blocks || 0;
+        const total = tasks?.length || currentMode || 1;
         callOpenAI(`Sessione completata! Ho finito ${completed} blocchi su ${total}. Fammi un debrief breve.`, 'post');
     }
 

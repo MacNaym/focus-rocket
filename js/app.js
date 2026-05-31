@@ -215,11 +215,9 @@ let dbInitialized = false;
 async function initDatabase() {
     if (dbInitialized) return;
 
-    // Verifica se Dexie è caricato
-    if (typeof Dexie === 'undefined') {
-        console.error('Dexie.js not loaded!');
-        showToast('❌ Errore: Dexie.js non caricato', 'warn');
-        return;
+    if (DB.storageMode === 'localStorage') {
+        console.warn('Dexie.js not loaded, using localStorage fallback');
+        showToast('⚠️ IndexedDB non disponibile: uso salvataggio locale fallback', 'warn');
     }
 
     try {
