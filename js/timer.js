@@ -46,6 +46,7 @@
             todayStats.blocks++; todayStats.minutes += wm; todayStats.completed++;
             await DB.updateDailyStats(today, todayStats);
             if(metricsVisible) await updateMetrics();
+            if (typeof pauseActiveMusic === 'function') pauseActiveMusic(true);
             createBurst();createConfetti({left:window.innerWidth/2,top:window.innerHeight/2},60);playCompletionSound();setTimeout(()=>showReward(),700);
             setTimeout(()=>checkAchievements(),1500);
             if('Notification' in window && Notification.permission==='granted')new Notification('🚀 Focus Rocket',{body:'Blocco completato! '+wm+' minuti di focus puro!'});}
