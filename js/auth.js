@@ -1,6 +1,6 @@
 /* ============================================
    Focus Rocket - Supabase Auth
-   Email/password + Google login
+   Email/password auth. Google OAuth is parked as a nice-to-have.
    ============================================ */
 
 let authInitialized = false;
@@ -55,7 +55,7 @@ function renderAuthState(user) {
     if (user) {
         status.textContent = 'Connesso';
         status.classList.add('online');
-        if (userEmail) userEmail.textContent = user.email || 'Account Google';
+        if (userEmail) userEmail.textContent = user.email || 'Account';
         if (signedOut) signedOut.style.display = 'none';
         if (signedIn) signedIn.style.display = 'block';
         if (email) email.value = '';
@@ -123,18 +123,7 @@ async function signInWithEmail() {
 }
 
 async function signInWithGoogle() {
-    const client = initSupabaseClient();
-    if (!client) {
-        showToast('Supabase non disponibile', 'warn');
-        return;
-    }
-
-    const { error } = await client.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: getAppRedirectUrl() }
-    });
-
-    if (error) showToast('Login Google fallito: ' + error.message, 'warn');
+    showToast('Login Google coming soon', 'info');
 }
 
 async function signOut() {
