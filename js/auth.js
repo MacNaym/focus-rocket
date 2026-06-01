@@ -5,8 +5,11 @@
 
 let authInitialized = false;
 let authUser = null;
+let accountMenuInitialized = false;
 
 async function initAuth() {
+    initAccountMenuUI();
+
     const client = initSupabaseClient();
     if (!client) {
         renderAuthState(null);
@@ -42,6 +45,57 @@ async function initAuth() {
     return authUser;
 }
 
+function initAccountMenuUI() {
+    if (accountMenuInitialized) return;
+    document.addEventListener('click', event => {
+        const wrapper = document.getElementById('accountMenuWrapper');
+        if (wrapper && !wrapper.contains(event.target)) closeAccountMenu();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeAccountMenu();
+    });
+    accountMenuInitialized = true;
+}
+
+function toggleAccountMenu(event) {
+    event?.stopPropagation();
+    const dropdown = document.getElementById('accountDropdown');
+    const toggle = document.getElementById('accountMenuToggle');
+    if (!dropdown || !toggle) return;
+
+    const isOpen = dropdown.classList.toggle('active');
+    toggle.classList.toggle('active', isOpen);
+}
+
+function closeAccountMenu() {
+    document.getElementById('accountDropdown')?.classList.remove('active');
+    document.getElementById('accountMenuToggle')?.classList.remove('active');
+}
+
+function getAccountInitials(user) {
+    if (!user) return '👤';
+
+    const name = user.user_metadata?.full_name || user.user_metadata?.name || '';
+    if (name.trim()) {
+        return name.trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase();
+    }
+
+    if (user.email) return user.email.slice(0, 2).toUpperCase();
+    return '👤';
+}
+
+function updateAccountAvatar(user) {
+    const value = getAccountInitials(user);
+    const label = user?.email || user?.user_metadata?.full_name || 'Non connesso';
+    const avatar = document.getElementById('accountAvatarText');
+    const preview = document.getElementById('accountAvatarPreview');
+    const subtitle = document.getElementById('accountDropdownSubtitle');
+
+    if (avatar) avatar.textContent = value;
+    if (preview) preview.textContent = value;
+    if (subtitle) subtitle.textContent = label;
+}
+
 function renderAuthState(user) {
     const status = document.getElementById('authStatus');
     const email = document.getElementById('authEmail');
@@ -49,6 +103,8 @@ function renderAuthState(user) {
     const signedOut = document.getElementById('authSignedOutControls');
     const signedIn = document.getElementById('authSignedInControls');
     const userEmail = document.getElementById('authUserEmail');
+
+    updateAccountAvatar(user);
 
     if (!status) return;
 
