@@ -70,6 +70,55 @@
         }
         .bd-nav-toggle:hover { border-color: var(--accent-orange); color: var(--accent-orange); transform: translateY(-1px); }
         .bd-nav-toggle.active { background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light)); border-color: var(--accent-orange); color: white; }
+        .account-menu-wrapper { position: relative; }
+        .account-avatar-btn {
+            width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border);
+            background: var(--bg-card); color: var(--accent-orange); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: 800; font-family: inherit;
+            box-shadow: var(--shadow); transition: var(--transition);
+        }
+        .account-avatar-btn:hover,
+        .account-avatar-btn.active {
+            border-color: var(--accent-orange); background: var(--accent-orange-bg);
+            transform: translateY(-1px);
+        }
+        .account-dropdown {
+            display: none; position: absolute; top: calc(100% + 10px); right: 0;
+            width: min(340px, calc(100vw - 32px)); z-index: 250;
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: var(--radius); box-shadow: var(--shadow-hover);
+            padding: 14px;
+        }
+        .account-dropdown.active { display: block; animation: account-pop 0.18s ease-out; }
+        @keyframes account-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .account-dropdown-header {
+            display: flex; align-items: center; gap: 10px; padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light); margin-bottom: 12px;
+        }
+        .account-avatar-preview {
+            width: 38px; height: 38px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; background: var(--accent-orange-bg);
+            color: var(--accent-orange); font-weight: 800; flex-shrink: 0;
+        }
+        .account-dropdown-title { font-weight: 800; color: var(--text-primary); line-height: 1.2; }
+        .account-dropdown-subtitle {
+            color: var(--text-muted); font-size: 0.78rem; max-width: 230px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .account-dropdown-section {
+            padding: 10px 0; border-bottom: 1px solid var(--border-light);
+        }
+        .account-dropdown-section:last-child { border-bottom: none; padding-bottom: 0; }
+        .account-menu-title {
+            color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase;
+            font-weight: 800; margin-bottom: 8px;
+        }
+        .account-menu-item {
+            width: 100%; justify-content: flex-start; margin-bottom: 8px;
+            border-radius: var(--radius-sm); box-shadow: none;
+        }
+        .account-menu-item:last-child { margin-bottom: 0; }
 .card {
             background: var(--bg-card); border-radius: var(--radius); padding: 24px;
             box-shadow: var(--shadow); border: 1px solid var(--border-light);
@@ -355,6 +404,11 @@
         }
         .settings-toggle:hover { border-color: var(--accent-yellow); color: var(--accent-yellow); }
         .settings-toggle.active { background: var(--accent-yellow); border-color: var(--accent-yellow); color: white; }
+        .account-dropdown .account-menu-item {
+            width: 100%; justify-content: flex-start; border-radius: var(--radius-sm);
+            margin-bottom: 8px; box-shadow: none;
+        }
+        .account-dropdown .account-menu-item:last-child { margin-bottom: 0; }
 
                 .checkbox-item {
             display: flex;
