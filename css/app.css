@@ -382,6 +382,25 @@
             font-size: 1rem; font-weight: 600;
         }
         .settings-card-header-icon { font-size: 1.3rem; }
+        .auth-status-row {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-bottom: 14px; color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .auth-status {
+            border: 1px solid var(--border); border-radius: 999px;
+            padding: 4px 10px; color: var(--text-muted); background: var(--bg-secondary);
+            font-size: 0.75rem; font-weight: 700;
+        }
+        .auth-status.online {
+            border-color: var(--accent-green); color: var(--accent-green);
+            background: var(--accent-green-bg);
+        }
+        .auth-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .auth-user-email {
+            color: var(--text-primary); font-weight: 700; margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
 
         .sound-effect-item {
             display: flex; align-items: center; gap: 12px; padding: 10px 12px;
