@@ -75,9 +75,6 @@
         <nav class="top-nav">
             <div class="logo"><span class="logo-icon">🚀</span><span>Focus Rocket</span></div>
             <div class="nav-controls">
-                <button class="settings-toggle" id="settingsToggle" onclick="toggleSettings()">
-                    <span>⚙️</span><span id="settingsText">Settings</span>
-                </button>
                 <button class="leaderboard-toggle" id="leaderboardToggle" onclick="toggleLeaderboard()">
                     <span>🏆</span><span id="leaderboardText">Leaderboard</span>
                 </button>
@@ -88,21 +85,73 @@
                 <button class="metrics-toggle" id="metricsToggle" onclick="toggleMetrics()">
                     <span>📊</span><span id="metricsText">Metrics</span>
                 </button>
-                <button class="gentle-toggle" id="gentleToggle" onclick="toggleGentleMode()">
-                    <span>🌿</span><span id="gentleText">Gentle</span>
-                </button>
-                <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">
-                    <span id="soundIcon">🔇</span><span id="soundText">Suono OFF</span>
-                </button>
-                <button class="strict-toggle-btn" id="strictToggle" onclick="toggleStrictMode()">
-                    <span>🔒</span><span>Strict</span>
-                </button>
                                 <button class="bd-nav-toggle" id="bdNavToggle" onclick="toggleBodyDoublingFromNav()">
                     <span>🤖</span><span id="bdNavText">Body Double</span>
                 </button>
-<button class="theme-toggle" onclick="toggleTheme()">
-                    <span id="themeIcon">🌙</span><span id="themeText">Dark</span>
-                </button>
+                <div class="account-menu-wrapper" id="accountMenuWrapper">
+                    <button class="account-avatar-btn" id="accountMenuToggle" onclick="toggleAccountMenu(event)" title="Account e preferenze">
+                        <span id="accountAvatarText">👤</span>
+                    </button>
+                    <div class="account-dropdown" id="accountDropdown">
+                        <div class="account-dropdown-header">
+                            <div class="account-avatar-preview" id="accountAvatarPreview">👤</div>
+                            <div>
+                                <div class="account-dropdown-title">Account</div>
+                                <div class="account-dropdown-subtitle" id="accountDropdownSubtitle">Non connesso</div>
+                            </div>
+                        </div>
+
+                        <div class="account-dropdown-section">
+                            <div class="auth-status-row">
+                                <span>Stato</span>
+                                <span class="auth-status" id="authStatus">Non connesso</span>
+                            </div>
+
+                            <div id="authSignedOutControls">
+                                <div class="input-group" style="margin-bottom:10px;">
+                                    <label style="display:block;margin-bottom:6px;font-size:0.8rem;color:var(--text-secondary);">Email</label>
+                                    <input type="email" id="authEmail" class="input-field" placeholder="nome@email.com" style="width:100%;">
+                                </div>
+                                <div class="input-group" style="margin-bottom:12px;">
+                                    <label style="display:block;margin-bottom:6px;font-size:0.8rem;color:var(--text-secondary);">Password</label>
+                                    <input type="password" id="authPassword" class="input-field" placeholder="Minimo 6 caratteri" style="width:100%;">
+                                </div>
+                                <div class="auth-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="signInWithEmail()">Accedi</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="signUpWithEmail()">Registrati</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="signInWithGoogle()" title="Login Google in arrivo">Google soon</button>
+                                </div>
+                            </div>
+
+                            <div id="authSignedInControls" style="display:none;">
+                                <div class="auth-user-email" id="authUserEmail"></div>
+                                <div class="auth-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="syncNow()">Sincronizza ora</button>
+                                    <button class="btn btn-secondary btn-sm" onclick="signOut()">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="account-dropdown-section">
+                            <div class="account-menu-title">Preferenze</div>
+                            <button class="account-menu-item settings-toggle" id="settingsToggle" onclick="closeAccountMenu(); toggleSettings()">
+                                <span>⚙️</span><span id="settingsText">Settings</span>
+                            </button>
+                            <button class="account-menu-item gentle-toggle" id="gentleToggle" onclick="toggleGentleMode()">
+                                <span>🌿</span><span id="gentleText">Gentle</span>
+                            </button>
+                            <button class="account-menu-item strict-toggle-btn" id="strictToggle" onclick="toggleStrictMode()">
+                                <span>🔒</span><span>Strict</span>
+                            </button>
+                            <button class="account-menu-item sound-toggle" id="soundToggle" onclick="toggleSound()">
+                                <span id="soundIcon">🔇</span><span id="soundText">Suono OFF</span>
+                            </button>
+                            <button class="account-menu-item theme-toggle" onclick="toggleTheme()">
+                                <span id="themeIcon">🌙</span><span id="themeText">Dark</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -345,44 +394,6 @@
             </div>
 
             <div class="settings-grid">
-                <!-- ACCOUNT / SYNC -->
-                <div class="settings-card">
-                    <div class="settings-card-header">
-                        <span class="settings-card-header-icon">👤</span>
-                        <span>Account & Sync</span>
-                    </div>
-                    <div class="settings-card-body">
-                        <div class="auth-status-row">
-                            <span>Stato</span>
-                            <span class="auth-status" id="authStatus">Non connesso</span>
-                        </div>
-
-                        <div id="authSignedOutControls">
-                            <div class="input-group" style="margin-bottom:10px;">
-                                <label style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--text-secondary);">Email</label>
-                                <input type="email" id="authEmail" class="input-field" placeholder="nome@email.com" style="width:100%;">
-                            </div>
-                            <div class="input-group" style="margin-bottom:12px;">
-                                <label style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--text-secondary);">Password</label>
-                                <input type="password" id="authPassword" class="input-field" placeholder="Minimo 6 caratteri" style="width:100%;">
-                            </div>
-                            <div class="auth-actions">
-                                <button class="btn btn-primary btn-sm" onclick="signInWithEmail()">Accedi</button>
-                                <button class="btn btn-secondary btn-sm" onclick="signUpWithEmail()">Registrati</button>
-                                <button class="btn btn-secondary btn-sm" onclick="signInWithGoogle()" title="Login Google in arrivo">Google soon</button>
-                            </div>
-                        </div>
-
-                        <div id="authSignedInControls" style="display:none;">
-                            <div class="auth-user-email" id="authUserEmail"></div>
-                            <div class="auth-actions">
-                                <button class="btn btn-primary btn-sm" onclick="syncNow()">Sincronizza ora</button>
-                                <button class="btn btn-secondary btn-sm" onclick="signOut()">Logout</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- SOUND EFFECTS -->
                 <div class="settings-card">
                     <div class="settings-card-header">
