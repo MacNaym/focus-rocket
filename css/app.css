@@ -36,7 +36,7 @@
         .app-container { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 20px; }
         .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
         .logo { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 700; color: var(--accent-orange); }
-        .logo-icon { font-size: 2rem; animation: rocket-bounce 2s ease-in-out infinite; }
+        .logo-icon { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; animation: rocket-bounce 2s ease-in-out infinite; box-shadow: 0 6px 18px rgba(80, 70, 255, 0.22); }
         @keyframes rocket-bounce { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
         .nav-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
         .theme-toggle, .sound-toggle, .strict-toggle-btn, .gentle-toggle, .metrics-toggle, .music-toggle {
@@ -567,9 +567,9 @@
         /* Gentle mode */
         body[data-gentle="true"] .particle,
         body[data-gentle="true"] .timer-card::before,
-        body[data-gentle="true"] .logo-icon,
         body[data-gentle="true"] .confetti,
         body[data-gentle="true"] .burst-effect { animation: none !important; display: none !important; }
+        body[data-gentle="true"] .logo-icon { animation: none !important; }
         body[data-gentle="true"] .card:hover { transform: none; }
 
         @media (max-width: 768px) {
