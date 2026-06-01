@@ -4,7 +4,7 @@ App di produttività personale con focus timer, task breakdown AI, musica integr
 
 ## 🌐 Live Demo
 
-https://[TUO-USERNAME].github.io/focus-rocket/
+https://macnaym.github.io/focus-rocket/
 
 ## 📁 Struttura
 
