@@ -1,0 +1,163 @@
+/* ============================================
+   Focus Rocket - Supabase Auth
+   Email/password + Google login
+   ============================================ */
+
+let authInitialized = false;
+let authUser = null;
+
+async function initAuth() {
+    const client = initSupabaseClient();
+    if (!client) {
+        renderAuthState(null);
+        return null;
+    }
+
+    const { data, error } = await client.auth.getSession();
+    if (error) {
+        console.error('Auth session error:', error);
+        showToast('Errore sessione Supabase', 'warn');
+    }
+
+    authUser = data?.session?.user || null;
+    if (authUser) initSync(client, authUser);
+    else disableSync();
+
+    renderAuthState(authUser);
+
+    if (!authInitialized) {
+        client.auth.onAuthStateChange(async (_event, session) => {
+            authUser = session?.user || null;
+            if (authUser) {
+                initSync(client, authUser);
+                await syncAllData();
+            } else {
+                disableSync();
+            }
+            renderAuthState(authUser);
+        });
+        authInitialized = true;
+    }
+
+    return authUser;
+}
+
+function renderAuthState(user) {
+    const status = document.getElementById('authStatus');
+    const email = document.getElementById('authEmail');
+    const password = document.getElementById('authPassword');
+    const signedOut = document.getElementById('authSignedOutControls');
+    const signedIn = document.getElementById('authSignedInControls');
+    const userEmail = document.getElementById('authUserEmail');
+
+    if (!status) return;
+
+    if (user) {
+        status.textContent = 'Connesso';
+        status.classList.add('online');
+        if (userEmail) userEmail.textContent = user.email || 'Account Google';
+        if (signedOut) signedOut.style.display = 'none';
+        if (signedIn) signedIn.style.display = 'block';
+        if (email) email.value = '';
+        if (password) password.value = '';
+    } else {
+        status.textContent = focusRocketSupabase ? 'Non connesso' : 'Supabase non disponibile';
+        status.classList.remove('online');
+        if (userEmail) userEmail.textContent = '';
+        if (signedOut) signedOut.style.display = 'block';
+        if (signedIn) signedIn.style.display = 'none';
+    }
+}
+
+function getAuthCredentials() {
+    const email = document.getElementById('authEmail')?.value.trim();
+    const password = document.getElementById('authPassword')?.value;
+
+    if (!email || !password) {
+        showToast('Inserisci email e password', 'warn');
+        return null;
+    }
+
+    if (password.length < 6) {
+        showToast('La password deve avere almeno 6 caratteri', 'warn');
+        return null;
+    }
+
+    return { email, password };
+}
+
+async function signUpWithEmail() {
+    const client = initSupabaseClient();
+    const credentials = getAuthCredentials();
+    if (!client || !credentials) return;
+
+    const { data, error } = await client.auth.signUp({
+        ...credentials,
+        options: { emailRedirectTo: getAppRedirectUrl() }
+    });
+
+    if (error) {
+        showToast('Registrazione fallita: ' + error.message, 'warn');
+        return;
+    }
+
+    if (data.user && !data.session) {
+        showToast('Controlla la mail per confermare l account', 'info');
+    } else {
+        showToast('Account creato', 'success');
+    }
+}
+
+async function signInWithEmail() {
+    const client = initSupabaseClient();
+    const credentials = getAuthCredentials();
+    if (!client || !credentials) return;
+
+    const { error } = await client.auth.signInWithPassword(credentials);
+    if (error) {
+        showToast('Login fallito: ' + error.message, 'warn');
+        return;
+    }
+
+    showToast('Login effettuato', 'success');
+}
+
+async function signInWithGoogle() {
+    const client = initSupabaseClient();
+    if (!client) {
+        showToast('Supabase non disponibile', 'warn');
+        return;
+    }
+
+    const { error } = await client.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: getAppRedirectUrl() }
+    });
+
+    if (error) showToast('Login Google fallito: ' + error.message, 'warn');
+}
+
+async function signOut() {
+    const client = initSupabaseClient();
+    if (!client) return;
+
+    const { error } = await client.auth.signOut();
+    if (error) {
+        showToast('Logout fallito: ' + error.message, 'warn');
+        return;
+    }
+
+    disableSync();
+    renderAuthState(null);
+    showToast('Logout effettuato', 'info');
+}
+
+async function syncNow() {
+    if (!syncEnabled) {
+        showToast('Accedi per sincronizzare', 'warn');
+        return;
+    }
+
+    await syncAllData();
+    showToast('Sync completato', 'success');
+}

@@ -59,6 +59,7 @@ if (db) db.version(DB_VERSION).stores({
 let supabaseClient = null;
 let currentUser = null;
 let syncEnabled = false;
+let syncStarted = false;
 
 function initSync(supabase, user) {
     supabaseClient = supabase;
@@ -218,8 +219,9 @@ const DB = {
             return;
         }
         await db.musicFavorites.clear();
-        const records = favorites.map(f => ({ ...f, synced: 1 }));
+        const records = favorites.map(f => ({ ...f, userId: currentUser?.id || 'local', synced: syncEnabled ? 0 : 1 }));
         await db.musicFavorites.bulkAdd(records);
+        if (syncEnabled) queueSync('musicFavorites');
     },
 
     async getMusicFavorites() {
@@ -233,8 +235,9 @@ const DB = {
             return;
         }
         await db.musicCustom.clear();
-        const records = custom.map(c => ({ ...c, synced: 1 }));
+        const records = custom.map(c => ({ ...c, userId: currentUser?.id || 'local', synced: syncEnabled ? 0 : 1 }));
         await db.musicCustom.bulkAdd(records);
+        if (syncEnabled) queueSync('musicCustom');
     },
 
     async getMusicCustom() {
@@ -249,8 +252,9 @@ const DB = {
             return;
         }
         await db.friends.clear();
-        const records = friendsList.map(f => ({ ...f, synced: 1 }));
+        const records = friendsList.map(f => ({ ...f, userId: currentUser?.id || 'local', synced: syncEnabled ? 0 : 1 }));
         await db.friends.bulkAdd(records);
+        if (syncEnabled) queueSync('friends');
     },
 
     async getFriends() {
@@ -337,32 +341,50 @@ async function processSyncQueue() {
     }
 }
 
-async function syncTable(table, id) {
-    const tableMap = {
-        sessions: { table: 'fr_sessions', dbTable: db.sessions },
-        tasks: { table: 'fr_tasks', dbTable: db.tasks },
-        dailyStats: { table: 'fr_daily_stats', dbTable: db.dailyStats },
-        achievements: { table: 'fr_achievements', dbTable: db.achievements },
-        settings: { table: 'fr_settings', dbTable: db.settings },
-        bdConversations: { table: 'fr_bd_conversations', dbTable: db.bdConversations },
-        bdCosts: { table: 'fr_bd_costs', dbTable: db.bdCosts }
+function getSyncTables() {
+    if (!db) return {};
+    return {
+        sessions: { table: 'fr_sessions', dbTable: db.sessions, conflict: 'userId,id' },
+        tasks: { table: 'fr_tasks', dbTable: db.tasks, conflict: 'userId,id' },
+        dailyStats: { table: 'fr_daily_stats', dbTable: db.dailyStats, conflict: 'userId,date' },
+        achievements: { table: 'fr_achievements', dbTable: db.achievements, conflict: 'userId,id' },
+        settings: { table: 'fr_settings', dbTable: db.settings, conflict: 'userId,key' },
+        musicFavorites: { table: 'fr_music_favorites', dbTable: db.musicFavorites, conflict: 'userId,id' },
+        musicCustom: { table: 'fr_music_custom', dbTable: db.musicCustom, conflict: 'userId,id' },
+        friends: { table: 'fr_friends', dbTable: db.friends, conflict: 'userId,id' },
+        bdConversations: { table: 'fr_bd_conversations', dbTable: db.bdConversations, conflict: 'userId,id' },
+        bdCosts: { table: 'fr_bd_costs', dbTable: db.bdCosts, conflict: 'userId,id' }
     };
+}
 
-    const mapping = tableMap[table];
+function prepareRecordsForSync(records) {
+    return records.map(record => ({
+        ...record,
+        userId: currentUser?.id,
+        synced: 0
+    })).filter(record => record.userId);
+}
+
+async function syncTable(table, id) {
+    if (!db) return;
+    const mapping = getSyncTables()[table];
     if (!mapping) return;
 
     let records;
-    if (id) {
+    if (id === '__all__') {
+        records = await mapping.dbTable.toArray();
+    } else if (id) {
         records = [await mapping.dbTable.get(id)].filter(Boolean);
     } else {
         records = await mapping.dbTable.where('synced').equals(0).toArray();
     }
 
+    records = prepareRecordsForSync(records);
     if (records.length === 0) return;
 
     const { error } = await supabaseClient
         .from(mapping.table)
-        .upsert(records, { onConflict: 'id' });
+        .upsert(records, { onConflict: mapping.conflict });
 
     if (error) throw error;
 
@@ -371,12 +393,23 @@ async function syncTable(table, id) {
 }
 
 function startPeriodicSync() {
+    if (syncStarted) return;
+    syncStarted = true;
     // Full sync ogni 60 secondi quando online
     setInterval(() => {
         if (navigator.onLine && syncEnabled) {
             processSyncQueue();
         }
     }, 60000);
+}
+
+async function syncAllData() {
+    if (!syncEnabled || !supabaseClient || !db) return;
+
+    const tables = getSyncTables();
+    for (const table of Object.keys(tables)) {
+        await syncTable(table, '__all__');
+    }
 }
 
 // ============================================

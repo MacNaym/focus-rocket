@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Inizializza database (IndexedDB + migrazione)
     await initDatabase();
+    await initAuth();
 
     // 2. UI init
     createParticles();
