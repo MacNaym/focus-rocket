@@ -17,6 +17,7 @@ let bdCheckInTimer = null;
 let bdCheckInCount = 0;
 let bdPreSessionTimer = null;
 let bdInitialized = false;
+let bdEventUnsubscribers = [];
 
 async function loadBdCosts() {
     const costs = await DB.getBdCost();
@@ -51,7 +52,26 @@ async function initBodyDoubling() {
         DB.setSetting('fr_bd_ai_sound', e.target.checked);
     });
 
+    bindBodyDoublingEvents();
     document.getElementById('bdNavToggle').style.display = 'flex';
+}
+
+function bindBodyDoublingEvents() {
+    if (bdEventUnsubscribers.length > 0) return;
+    if (typeof FocusRocketEvents === 'undefined') return;
+
+    bdEventUnsubscribers = [
+        FocusRocketEvents.on('timer:started', startBodyDoublingSession),
+        FocusRocketEvents.on('timer:paused', stopBodyDoublingSession),
+        FocusRocketEvents.on('timer:reset', stopBodyDoublingSession),
+        FocusRocketEvents.on('timer:block-completed', () => {
+            if (document.getElementById('bodyDoublingEnabled')?.checked && bdConversation.length > 0) {
+                setTimeout(() => {
+                    callOpenAI('Ho appena completato un blocco di focus!', 'mid');
+                }, 1000);
+            }
+        })
+    ];
 }
 
 function toggleBodyDoublingFromNav() {
@@ -304,24 +324,3 @@ function stopBodyDoublingSession() {
         document.getElementById('bdNavText').textContent = 'Body Double';
     }, 30000);
 }
-
-const originalToggleTimer = toggleTimer;
-toggleTimer = function() {
-    const wasRunning = isRunning;
-    originalToggleTimer();
-    if (!wasRunning && isRunning) {
-        startBodyDoublingSession();
-    } else if (wasRunning && !isRunning) {
-        stopBodyDoublingSession();
-    }
-};
-
-const originalCompleteBlock = completeBlock;
-completeBlock = function() {
-    originalCompleteBlock();
-    if (document.getElementById('bodyDoublingEnabled')?.checked && bdConversation.length > 0) {
-        setTimeout(() => {
-            callOpenAI('Ho appena completato un blocco di focus!', 'mid');
-        }, 1000);
-    }
-};

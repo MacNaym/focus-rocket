@@ -1,11 +1,12 @@
 /* Focus Rocket PWA Service Worker */
 
-const CACHE_VERSION = 'focus-rocket-v7-4-1';
+const CACHE_VERSION = 'focus-rocket-v7-5-1';
 const APP_SHELL = [
     './',
     './index.html',
     './css/app.css',
     './js/supabase-config.js',
+    './js/events.js',
     './js/db.js',
     './js/app.js',
     './js/metrics.js',
