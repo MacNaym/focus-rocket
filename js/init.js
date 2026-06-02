@@ -1,5 +1,5 @@
 /* ============================================
-   Focus Rocket — INIT Module
+   Focus Rocket  INIT Module
    DOMContentLoaded & global event listeners
    ============================================ */
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (savedSound === 'true' || savedSound === true) {
         AudioEngine.enabled = true;
         document.getElementById('soundToggle').classList.add('active');
-        document.getElementById('soundIcon').textContent = '🔊';
+        document.getElementById('soundIcon').textContent = '';
         document.getElementById('soundText').textContent = 'Suono ON';
     }
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 6. Visibility
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden && isRunning) console.log('Tab nascosto — timer continua');
+        if (document.hidden && isRunning) console.log('Tab nascosto  timer continua');
     });
 
     // 7. Offline/Online
@@ -49,5 +49,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 9. Body Doubling init
     initBodyDoubling();
 
-    console.log('🚀 Focus Rocket initialized');
+    console.log(' Focus Rocket initialized');
 });

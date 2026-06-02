@@ -84,7 +84,11 @@ async function loadMusicData() {
 function applyBuiltInMusicCatalog() {
     Object.entries(MUSIC_CATALOG).forEach(([id, item]) => {
         const iframe = document.getElementById('iframe-' + id);
-        if (iframe) iframe.src = buildYouTubeSrc(item, false);
+        if (iframe) {
+            iframe.dataset.src = buildYouTubeSrc(item, false);
+            iframe.loading = 'lazy';
+            if (!iframe.getAttribute('src')) iframe.src = 'about:blank';
+        }
     });
 }
 
@@ -318,7 +322,7 @@ function renderCustomMusic() {
                     </div>
                 </div>
                 <div class="music-embed">
-                    <iframe id="iframe-${m.id}" src="${buildYouTubeSrc(item, false)}" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    <iframe id="iframe-${m.id}" src="about:blank" data-src="${buildYouTubeSrc(item, false)}" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
                 <div class="music-card-actions">
                     <button class="music-action-btn" onclick="playMusic('${m.id}', '${m.title.replace(/'/g, "\\'")}')">▶️ Play</button>
@@ -351,7 +355,3 @@ function pauseMiniPlayer() {
     if (miniPlayerPaused) resumeActiveMusic();
     else pauseActiveMusic();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    applyBuiltInMusicCatalog();
-});

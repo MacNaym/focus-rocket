@@ -15,6 +15,8 @@ let bdSessionCost = 0;
 let bdTotalCost = 0;
 let bdCheckInTimer = null;
 let bdCheckInCount = 0;
+let bdPreSessionTimer = null;
+let bdInitialized = false;
 
 async function loadBdCosts() {
     const costs = await DB.getBdCost();
@@ -22,6 +24,9 @@ async function loadBdCosts() {
 }
 
 async function initBodyDoubling() {
+    if (bdInitialized) return;
+    bdInitialized = true;
+
     await loadBdCosts();
     const enabled = document.getElementById('bodyDoublingEnabled')?.checked ?? true;
     if (!enabled) {
@@ -244,10 +249,16 @@ function updateCostDisplays() {
 function startBodyDoublingSession() {
     const enabled = document.getElementById('bodyDoublingEnabled')?.checked ?? true;
     if (!enabled) return;
+    if (!authUser) {
+        showToast('Accedi per usare il Body Double AI', 'info');
+        return;
+    }
 
     bdConversation = [];
     bdSessionCost = 0;
     bdCheckInCount = 0;
+    if (bdPreSessionTimer) clearTimeout(bdPreSessionTimer);
+    if (bdCheckInTimer) clearInterval(bdCheckInTimer);
     updateCostDisplays();
 
     showBodyDoublingWidget();
@@ -258,7 +269,7 @@ function startBodyDoublingSession() {
     chat.innerHTML = '';
     addBdMessage('Ciao! Sono il tuo Body Double AI. Ti accompagno durante questa sessione di focus.', 'ai');
 
-    setTimeout(() => {
+    bdPreSessionTimer = setTimeout(() => {
         const task = document.getElementById('taskInput')?.value || 'focus';
         callOpenAI(`Sto per iniziare una sessione di focus. Il mio task e: "${task}". Dammi un incoraggiamento e aiutami a spezzarlo in piccoli passi.`, 'pre');
     }, 5000);
@@ -271,6 +282,10 @@ function startBodyDoublingSession() {
 }
 
 function stopBodyDoublingSession() {
+    if (bdPreSessionTimer) {
+        clearTimeout(bdPreSessionTimer);
+        bdPreSessionTimer = null;
+    }
     if (bdCheckInTimer) {
         clearInterval(bdCheckInTimer);
         bdCheckInTimer = null;
@@ -310,5 +325,3 @@ completeBlock = function() {
         }, 1000);
     }
 };
-
-document.addEventListener('DOMContentLoaded', initBodyDoubling);
