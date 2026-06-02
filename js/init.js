@@ -49,5 +49,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 9. Body Doubling init
     initBodyDoubling();
 
-    console.log(' Focus Rocket initialized');
+    console.log('Focus Rocket initialized');
 });
+
+async function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+
+    try {
+        const registration = await navigator.serviceWorker.register('./sw.js');
+        registration.addEventListener('updatefound', () => {
+            const worker = registration.installing;
+            if (!worker) return;
+
+            worker.addEventListener('statechange', () => {
+                if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+                    showToast('Aggiornamento disponibile: ricarica la pagina', 'info');
+                }
+            });
+        });
+        console.log('Focus Rocket service worker registered');
+    } catch (err) {
+        console.warn('Service worker registration failed:', err);
+    }
+}
+
+registerServiceWorker();
