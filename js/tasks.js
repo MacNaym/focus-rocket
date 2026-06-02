@@ -1,135 +1,141 @@
 /* ============================================
-   Focus Rocket — TASKS Module
-   Refactored from monolithic HTML
+   Focus Rocket - TASKS Module
+   Task breakdown via Supabase Edge Function.
    ============================================ */
 
+const TASK_FALLBACK = [
+    'Analizzare il task e definire il risultato atteso',
+    'Raccogliere materiali, link e informazioni utili',
+    'Eseguire la prima parte operativa',
+    'Completare la seconda parte operativa',
+    'Rivedere, rifinire e chiudere il task'
+];
+
 // ===== TASK BREAKDOWN =====
-        async function breakDownTask() {
-            const input = document.getElementById('bigTask');
-            const task = input.value.trim();
-            if (!task) { showToast('Inserisci prima un task!', 'warn'); return; }
+async function breakDownTask() {
+    const input = document.getElementById('bigTask');
+    const task = input.value.trim();
+    if (!task) {
+        showToast('Inserisci prima un task!', 'warn');
+        return;
+    }
 
-            const generated = await generateMicroTasks(task);
-            tasks = generated.map((t,i) => ({ id: Date.now()+i, text: t, completed: false, time: 25 }));
-            currentTaskIndex = 0;
-            saveTasks(); renderTasks(); input.value = '';
-            showToast('🔨 Task scomposto in ' + tasks.length + ' micro-task!', 'success');
-        }
-        async function generateMicroTasks(bigTask) {
-            const apiKey = localStorage.getItem('openaiApiKey');
-            const model = localStorage.getItem('openaiModel') || 'gpt-5.4-nano';
+    const generated = await generateMicroTasks(task);
+    tasks = generated.map((t, i) => ({ id: Date.now() + i, text: t, completed: false, time: 25 }));
+    currentTaskIndex = 0;
+    saveTasks();
+    renderTasks();
+    input.value = '';
+    showToast('Task scomposto in ' + tasks.length + ' micro-task!', 'success');
+}
 
-            if (!apiKey) {
-                showToast('⚠️ Inserisci la OpenAI API Key nelle Settings per usare la scomposizione AI!', 'warn');
-                // Fallback to basic template
-                return ['Fase 1: Analisi e pianificazione','Fase 2: Raccolta informazioni','Fase 3: Esecuzione parte 1','Fase 4: Esecuzione parte 2','Fase 5: Review e finalizzazione'];
-            }
+async function generateMicroTasks(bigTask) {
+    const input = document.getElementById('bigTask');
+    const originalPlaceholder = input.placeholder;
+    input.placeholder = 'AI al lavoro sul task...';
+    input.disabled = true;
 
-            // Show loading state
-            const input = document.getElementById('bigTask');
-            const originalPlaceholder = input.placeholder;
-            input.placeholder = '⏳ L\'AI sta scomponendo il task...';
-            input.disabled = true;
-
-            try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: model,
-                        messages: [
-                            {
-                                role: 'system',
-                                content: `Sei un esperto di produttività e project management per l'app Focus Rocket. 
-Il tuo compito è scomporre un task complesso in 4-6 micro-task molto specifici e actionable, 
-della durata di circa 25 minuti ciascuno (stile Pomodoro). 
+    try {
+        const data = await callAiProxy({
+            feature: 'task_breakdown',
+            model: getSelectedAiModel(),
+            maxTokens: 300,
+            temperature: 0.7,
+            messages: [
+                {
+                    role: 'system',
+                    content: `Sei un esperto di produttivita e project management per l'app Focus Rocket.
+Il tuo compito e scomporre un task complesso in 4-6 micro-task molto specifici e azionabili,
+della durata di circa 25 minuti ciascuno, in stile Pomodoro.
 
 Regole:
 - Ogni micro-task deve iniziare con un verbo all'imperativo o infinito
-- Deve essere specifico e misurabile (non vago)
-- Durata implicita: ~25 minuti ciascuno
-- Formato: "Azione — oggetto — dettaglio"
-- Rispondi SOLO con la lista, uno per riga, senza numeri, senza introduzione, senza conclusione
+- Deve essere specifico e misurabile
+- Durata implicita: circa 25 minuti ciascuno
+- Formato: "Azione - oggetto - dettaglio"
+- Rispondi solo con la lista, uno per riga
+- Non usare numeri, introduzioni o conclusioni
 - Massimo 6 micro-task, minimo 4`
-                            },
-                            {
-                                role: 'user',
-                                content: `Scomponi questo task in micro-task da 25 minuti: "${bigTask}"`
-                            }
-                        ],
-                        max_tokens: 300,
-                        temperature: 0.7
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error?.message || 'Errore API');
+                },
+                {
+                    role: 'user',
+                    content: `Scomponi questo task in micro-task da 25 minuti: "${bigTask}"`
                 }
+            ]
+        });
 
-                const data = await response.json();
-                const aiText = data.choices[0].message.content;
+        const lines = data.text.split('\n').map((line) => line.trim()).filter(Boolean);
+        const generatedTasks = lines
+            .map((line) => line.replace(/^[-*0-9.)\s]+/, '').trim())
+            .filter((line) => line.length > 5);
 
-                // Parse the response into individual tasks
-                const lines = aiText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                // Remove bullet points, numbers, dashes at start
-                const tasks = lines.map(l => l.replace(/^[-•*\d\.\)\s]+/, '').trim()).filter(l => l.length > 5);
+        const cost = trackAiCost(data.estimatedCost);
 
-                // Track cost
-                const pricing = BD_PRICING[model] || BD_PRICING['gpt-5.4-nano'];
-                const inputTokens = data.usage?.prompt_tokens || 300;
-                const outputTokens = data.usage?.completion_tokens || 150;
-                const cost = (inputTokens * pricing.input + outputTokens * pricing.output) / 1000000;
-
-                bdTotalCost += cost;
-                localStorage.setItem('bdTotalCost', bdTotalCost.toString());
-                if (document.getElementById('totalCostDisplay')) {
-                    document.getElementById('totalCostDisplay').textContent = '$' + bdTotalCost.toFixed(4);
-                }
-
-                input.placeholder = originalPlaceholder;
-                input.disabled = false;
-
-                if (tasks.length >= 3) {
-                    showToast(`🤖 AI ha generato ${tasks.length} micro-task! Costo: $${cost.toFixed(4)}`, 'success');
-                    return tasks.slice(0, 6); // Max 6 tasks
-                } else {
-                    showToast('⚠️ Risposta AI non valida, uso fallback', 'warn');
-                    return ['Fase 1: Analisi e pianificazione','Fase 2: Raccolta informazioni','Fase 3: Esecuzione parte 1','Fase 4: Esecuzione parte 2','Fase 5: Review e finalizzazione'];
-                }
-
-            } catch (err) {
-                console.error('GPT Task Breakdown Error:', err);
-                input.placeholder = originalPlaceholder;
-                input.disabled = false;
-                showToast('❌ Errore AI: ' + err.message, 'warn');
-                return ['Fase 1: Analisi e pianificazione','Fase 2: Raccolta informazioni','Fase 3: Esecuzione parte 1','Fase 4: Esecuzione parte 2','Fase 5: Review e finalizzazione'];
-            }
+        if (generatedTasks.length >= 3) {
+            showToast(`AI ha generato ${generatedTasks.length} micro-task. Costo: $${cost.toFixed(4)}`, 'success');
+            return generatedTasks.slice(0, 6);
         }
-        function addManualTask() {
-            const text = prompt('Descrivi il micro-task:');
-            if (text) { tasks.push({ id: Date.now(), text: text + ' (25 min)', completed: false, time: 25 }); saveTasks(); renderTasks(); }
+
+        showToast('Risposta AI non valida, uso fallback', 'warn');
+        return TASK_FALLBACK;
+    } catch (err) {
+        console.error('AI task breakdown error:', err);
+        showToast('AI non disponibile: ' + err.message, 'warn');
+        return TASK_FALLBACK;
+    } finally {
+        input.placeholder = originalPlaceholder;
+        input.disabled = false;
+    }
+}
+
+function addManualTask() {
+    const text = prompt('Descrivi il micro-task:');
+    if (text) {
+        tasks.push({ id: Date.now(), text: text + ' (25 min)', completed: false, time: 25 });
+        saveTasks();
+        renderTasks();
+    }
+}
+
+function clearTasks() {
+    if (confirm('Cancellare tutti i task?')) {
+        tasks = [];
+        currentTaskIndex = 0;
+        saveTasks();
+        renderTasks();
+        showToast('Task puliti', 'info');
+    }
+}
+
+function toggleTask(id) {
+    const task = tasks.find((t) => t.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        if (task.completed && !tasks.every((t) => t.completed)) {
+            const next = tasks.find((t) => !t.completed);
+            if (next) currentTaskIndex = tasks.indexOf(next);
         }
-        function clearTasks() {
-            if (confirm('Cancellare tutti i task?')) { tasks = []; currentTaskIndex = 0; saveTasks(); renderTasks(); showToast('Task puliti', 'info'); }
+        saveTasks();
+        renderTasks();
+        if (task.completed) {
+            createConfetti({ left: window.innerWidth / 2, top: window.innerHeight / 2 }, 15);
+            AudioEngine.success();
         }
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                if (task.completed && !tasks.every(t => t.completed)) {
-                    const next = tasks.find(t => !t.completed);
-                    if (next) currentTaskIndex = tasks.indexOf(next);
-                }
-                saveTasks(); renderTasks();
-                if (task.completed) { createConfetti({left: window.innerWidth/2, top: window.innerHeight/2}, 15); AudioEngine.success(); }
-            }
-        }
-        function renderTasks() {
-            const container = document.getElementById('microTasks');
-            if (tasks.length === 0) { container.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:20px;">Nessun task ancora. Scrivi un task grande sopra! 📝</div>'; return; }
-            container.innerHTML = tasks.map((t,i) => `<div class="micro-task ${t.completed?'completed':''}" onclick="toggleTask(${t.id})" style="${i===currentTaskIndex && !t.completed?'border-color:var(--accent-orange);background:var(--accent-orange-bg);':''}"><div class="task-checkbox"></div><div class="task-text">${t.text}</div><div class="task-time-badge">⏱️ ${t.time}m</div></div>`).join('');
-        }
+    }
+}
+
+function renderTasks() {
+    const container = document.getElementById('microTasks');
+    if (tasks.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:20px;">Nessun task ancora. Scrivi un task grande sopra!</div>';
+        return;
+    }
+
+    container.innerHTML = tasks.map((t, i) => `
+        <div class="micro-task ${t.completed ? 'completed' : ''}" onclick="toggleTask(${t.id})" style="${i === currentTaskIndex && !t.completed ? 'border-color:var(--accent-orange);background:var(--accent-orange-bg);' : ''}">
+            <div class="task-checkbox"></div>
+            <div class="task-text">${t.text}</div>
+            <div class="task-time-badge">${t.time}m</div>
+        </div>
+    `).join('');
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
     <!-- OFFLINE INDICATOR -->
     <div class="offline-banner" id="offlineBanner">
-        <span>📡</span> Sei offline — alcune funzioni potrebbero non funzionare
+        <span>ðŸ“¡</span> Sei offline â€” alcune funzioni potrebbero non funzionare
     </div>
 
 <html lang="it">
@@ -24,19 +24,19 @@
 
     <!-- MINI PLAYER -->
     <div class="mini-player" id="miniPlayer">
-        <span>🎵</span>
+        <span>ðŸŽµ</span>
         <span class="mini-player-title" id="miniPlayerTitle">Nessuna musica</span>
-        <button class="mini-player-btn" onclick="previousTrack()" title="Brano precedente">⏮️</button>
-        <button class="mini-player-btn" id="miniPlayerPauseBtn" onclick="pauseMiniPlayer()" title="Pausa/Play">⏸️</button>
-        <button class="mini-player-btn" onclick="nextTrack()" title="Brano successivo">⏭️</button>
-        <button class="mini-player-btn" onclick="toggleMiniPlayer()" title="Chiudi">✕</button>
+        <button class="mini-player-btn" onclick="previousTrack()" title="Brano precedente">â®ï¸</button>
+        <button class="mini-player-btn" id="miniPlayerPauseBtn" onclick="pauseMiniPlayer()" title="Pausa/Play">â¸ï¸</button>
+        <button class="mini-player-btn" onclick="nextTrack()" title="Brano successivo">â­ï¸</button>
+        <button class="mini-player-btn" onclick="toggleMiniPlayer()" title="Chiudi">âœ•</button>
     </div>
 
     <!-- STRICT OVERLAY -->
     <div class="strict-overlay" id="strictOverlay">
         <div class="strict-header">
-            <div style="font-size: 4rem; margin-bottom: 10px;">🔒</div>
-            <h2>Strict Mode — Focus Intensivo</h2>
+            <div style="font-size: 4rem; margin-bottom: 10px;">ðŸ”’</div>
+            <h2>Strict Mode â€” Focus Intensivo</h2>
             <p>Niente distrazioni. Solo tu, il timer e il task corrente.</p>
         </div>
         <div class="strict-timer-big" id="strictTimerDisplay">25:00</div>
@@ -45,31 +45,31 @@
             <div style="font-size: 1.2rem; font-weight: 600; color: var(--text-primary);" id="strictTaskText">Nessun task selezionato</div>
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-            <button class="btn btn-primary" onclick="toggleTimer()" id="strictStartBtn"><span id="strictStartIcon">▶️</span> Start</button>
-            <button class="btn btn-secondary" onclick="completeEarly()">✅ Done</button>
+            <button class="btn btn-primary" onclick="toggleTimer()" id="strictStartBtn"><span id="strictStartIcon">â–¶ï¸</span> Start</button>
+            <button class="btn btn-secondary" onclick="completeEarly()">âœ… Done</button>
         </div>
-        <button class="strict-exit-btn" onclick="disableStrictMode()">🔓 Disattiva Strict Mode</button>
+        <button class="strict-exit-btn" onclick="disableStrictMode()">ðŸ”“ Disattiva Strict Mode</button>
     </div>
 
     <!-- REWARD OVERLAY -->
     <div class="reward-overlay" id="rewardOverlay">
         <div class="celebration-container" id="celebration"></div>
         <div class="reward-content">
-            <div class="applause-text" id="applauseEmoji">👏</div>
+            <div class="applause-text" id="applauseEmoji">ðŸ‘</div>
             <div class="reward-title" id="rewardTitle">Missione Compiuta!</div>
             <div class="reward-subtitle">Ecco la tua dose di dopamina ben meritata</div>
             <div class="reward-timer" id="rewardTimer">05:00</div>
             <div class="video-container" id="rewardVideoContainer" style="position:relative;">
                 <iframe id="rewardVideo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <div id="rewardVideoOverlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; flex-direction:column; gap:12px; border-radius:var(--radius); cursor:pointer;" onclick="manualPlayRewardVideo()">
-                    <div style="font-size:3rem;">▶️</div>
+                    <div style="font-size:3rem;">â–¶ï¸</div>
                     <div style="color:white; font-size:1rem; font-weight:600;">Clicca per riprodurre</div>
-                    <div style="color:var(--text-muted); font-size:0.8rem;">L'autoplay è bloccato dal browser</div>
+                    <div style="color:var(--text-muted); font-size:0.8rem;">L'autoplay Ã¨ bloccato dal browser</div>
                 </div>
             </div>
             <div class="reward-controls">
-                <button class="btn btn-primary" onclick="nextVideo()">🎲 Prossimo Video</button>
-                <button class="btn btn-secondary" onclick="skipReward()">⏭️ Torna al Lavoro</button>
+                <button class="btn btn-primary" onclick="nextVideo()">ðŸŽ² Prossimo Video</button>
+                <button class="btn btn-secondary" onclick="skipReward()">â­ï¸ Torna al Lavoro</button>
             </div>
         </div>
     </div>
@@ -80,25 +80,25 @@
             <div class="logo"><img class="logo-icon" src="assets/focus-rocket-logo.png" alt="Focus Rocket"><span>Focus Rocket</span></div>
             <div class="nav-controls">
                 <button class="leaderboard-toggle" id="leaderboardToggle" onclick="toggleLeaderboard()">
-                    <span>🏆</span><span id="leaderboardText">Leaderboard</span>
+                    <span>ðŸ†</span><span id="leaderboardText">Leaderboard</span>
                 </button>
 
                 <button class="music-toggle" id="musicToggle" onclick="toggleMusic()">
-                    <span>🎵</span><span id="musicText">Music</span>
+                    <span>ðŸŽµ</span><span id="musicText">Music</span>
                 </button>
                 <button class="metrics-toggle" id="metricsToggle" onclick="toggleMetrics()">
-                    <span>📊</span><span id="metricsText">Metrics</span>
+                    <span>ðŸ“Š</span><span id="metricsText">Metrics</span>
                 </button>
                                 <button class="bd-nav-toggle" id="bdNavToggle" onclick="toggleBodyDoublingFromNav()">
-                    <span>🤖</span><span id="bdNavText">Body Double</span>
+                    <span>ðŸ¤–</span><span id="bdNavText">Body Double</span>
                 </button>
                 <div class="account-menu-wrapper" id="accountMenuWrapper">
                     <button class="account-avatar-btn" id="accountMenuToggle" onclick="toggleAccountMenu(event)" title="Account e preferenze">
-                        <span id="accountAvatarText">👤</span>
+                        <span id="accountAvatarText">ðŸ‘¤</span>
                     </button>
                     <div class="account-dropdown" id="accountDropdown">
                         <div class="account-dropdown-header">
-                            <div class="account-avatar-preview" id="accountAvatarPreview">👤</div>
+                            <div class="account-avatar-preview" id="accountAvatarPreview">ðŸ‘¤</div>
                             <div>
                                 <div class="account-dropdown-title">Account</div>
                                 <div class="account-dropdown-subtitle" id="accountDropdownSubtitle">Non connesso</div>
@@ -139,19 +139,19 @@
                         <div class="account-dropdown-section">
                             <div class="account-menu-title">Preferenze</div>
                             <button class="account-menu-item settings-toggle" id="settingsToggle" onclick="closeAccountMenu(); toggleSettings()">
-                                <span>⚙️</span><span id="settingsText">Settings</span>
+                                <span>âš™ï¸</span><span id="settingsText">Settings</span>
                             </button>
                             <button class="account-menu-item gentle-toggle" id="gentleToggle" onclick="toggleGentleMode()">
-                                <span>🌿</span><span id="gentleText">Gentle</span>
+                                <span>ðŸŒ¿</span><span id="gentleText">Gentle</span>
                             </button>
                             <button class="account-menu-item strict-toggle-btn" id="strictToggle" onclick="toggleStrictMode()">
-                                <span>🔒</span><span>Strict</span>
+                                <span>ðŸ”’</span><span>Strict</span>
                             </button>
                             <button class="account-menu-item sound-toggle" id="soundToggle" onclick="toggleSound()">
-                                <span id="soundIcon">🔇</span><span id="soundText">Suono OFF</span>
+                                <span id="soundIcon">ðŸ”‡</span><span id="soundText">Suono OFF</span>
                             </button>
                             <button class="account-menu-item theme-toggle" onclick="toggleTheme()">
-                                <span id="themeIcon">🌙</span><span id="themeText">Dark</span>
+                                <span id="themeIcon">ðŸŒ™</span><span id="themeText">Dark</span>
                             </button>
                         </div>
                     </div>
@@ -162,55 +162,55 @@
         <!-- METRICS DASHBOARD (toggleable) -->
         <div class="metrics-section" id="metricsSection">
             <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
-                    <button class="btn btn-secondary btn-sm" onclick="toggleMetrics()">⏱️ Torna al Timer</button>
+                    <button class="btn btn-secondary btn-sm" onclick="toggleMetrics()">â±ï¸ Torna al Timer</button>
                 </div>
                 <div class="metrics-grid">
                 <div class="metric-card">
-                    <div class="metric-header"><span class="metric-title">Produttività Oggi</span><span class="metric-icon">📊</span></div>
+                    <div class="metric-header"><span class="metric-title">ProduttivitÃ  Oggi</span><span class="metric-icon">ðŸ“Š</span></div>
                     <div class="metric-value" id="productivityValue">0%</div>
                     <div class="metric-subtitle">Blocchi completati vs pianificati</div>
                     <div class="metric-bar"><div class="metric-bar-fill orange" id="productivityBar" style="width:0%"></div></div>
-                    <div class="metric-trend up" id="productivityTrend"><span>↑</span><span>+5% vs ieri</span></div>
+                    <div class="metric-trend up" id="productivityTrend"><span>â†‘</span><span>+5% vs ieri</span></div>
                 </div>
                 <div class="metric-card green">
-                    <div class="metric-header"><span class="metric-title">Focus Time</span><span class="metric-icon">⏱️</span></div>
+                    <div class="metric-header"><span class="metric-title">Focus Time</span><span class="metric-icon">â±ï¸</span></div>
                     <div class="metric-value" id="focusTimeValue">0h 0m</div>
                     <div class="metric-subtitle">Tempo totale in focus oggi</div>
                     <div class="metric-bar"><div class="metric-bar-fill green" id="focusTimeBar" style="width:0%"></div></div>
-                    <div class="metric-trend up" id="focusTrend"><span>↑</span><span>+12% vs ieri</span></div>
+                    <div class="metric-trend up" id="focusTrend"><span>â†‘</span><span>+12% vs ieri</span></div>
                 </div>
                 <div class="metric-card blue">
-                    <div class="metric-header"><span class="metric-title">Efficienza</span><span class="metric-icon">⚡</span></div>
+                    <div class="metric-header"><span class="metric-title">Efficienza</span><span class="metric-icon">âš¡</span></div>
                     <div class="metric-value" id="efficiencyValue">0%</div>
                     <div class="metric-subtitle">Tempo effettivo / pianificato</div>
                     <div class="metric-bar"><div class="metric-bar-fill blue" id="efficiencyBar" style="width:0%"></div></div>
-                    <div class="metric-trend" id="efficiencyTrend"><span>→</span><span>Stabile</span></div>
+                    <div class="metric-trend" id="efficiencyTrend"><span>â†’</span><span>Stabile</span></div>
                 </div>
                 <div class="metric-card purple">
-                    <div class="metric-header"><span class="metric-title">Streak Giorni</span><span class="metric-icon">🔥</span></div>
+                    <div class="metric-header"><span class="metric-title">Streak Giorni</span><span class="metric-icon">ðŸ”¥</span></div>
                     <div class="metric-value" id="streakValue">0</div>
                     <div class="metric-subtitle">Giorni consecutivi con focus</div>
                     <div class="metric-bar"><div class="metric-bar-fill" style="width:0%;background:linear-gradient(90deg,var(--accent-purple),var(--accent-blue))"></div></div>
-                    <div class="metric-trend up" id="streakTrend"><span>↑</span><span>Record personale!</span></div>
+                    <div class="metric-trend up" id="streakTrend"><span>â†‘</span><span>Record personale!</span></div>
                 </div>
             </div>
 
             <!-- Weekly Calendar -->
             <div class="card">
-                <div class="card-header"><span style="font-size:1.2rem;">📅</span><span>Settimana in Corso</span></div>
+                <div class="card-header"><span style="font-size:1.2rem;">ðŸ“…</span><span>Settimana in Corso</span></div>
                 <div class="week-grid" id="weekGrid"></div>
             </div>
 
             <!-- Daily Focus Chart -->
             <div class="card">
-                <div class="chart-title"><span style="font-size:1.2rem;">📈</span><span>Minuti di Focus — Ultimi 7 Giorni</span></div>
+                <div class="chart-title"><span style="font-size:1.2rem;">ðŸ“ˆ</span><span>Minuti di Focus â€” Ultimi 7 Giorni</span></div>
                 <div class="bar-chart" id="focusChart"></div>
             </div>
 
             <!-- Reset -->
             <div class="reset-section">
-                <button class="reset-btn" onclick="resetWeeklyData()">🗑️ Reset dati settimanali</button>
-                <button class="reset-btn" onclick="exportCSV()" style="margin-left:10px;">📥 Esporta CSV</button>
+                <button class="reset-btn" onclick="resetWeeklyData()">ðŸ—‘ï¸ Reset dati settimanali</button>
+                <button class="reset-btn" onclick="exportCSV()" style="margin-left:10px;">ðŸ“¥ Esporta CSV</button>
             </div>
         </div>
 
@@ -219,23 +219,23 @@
             <div class="card">
                 <div class="card-header" style="justify-content:space-between;">
                     <div style="display:flex;align-items:center;gap:10px;">
-                        <span style="font-size:1.2rem;">🎵</span><span>Music Player — Scegli la tua colonna sonora</span>
+                        <span style="font-size:1.2rem;">ðŸŽµ</span><span>Music Player â€” Scegli la tua colonna sonora</span>
                     </div>
-                    <button class="btn btn-secondary btn-sm" onclick="toggleMusic()">⏱️ Torna al Timer</button>
+                    <button class="btn btn-secondary btn-sm" onclick="toggleMusic()">â±ï¸ Torna al Timer</button>
                 </div>
 
                 <div class="music-tabs">
                     <button class="music-tab active" onclick="switchMusicTab('focus')">
-                        <span>🧠</span><span>Focus</span>
+                        <span>ðŸ§ </span><span>Focus</span>
                     </button>
                     <button class="music-tab" onclick="switchMusicTab('relax')">
-                        <span>🌊</span><span>Relax</span>
+                        <span>ðŸŒŠ</span><span>Relax</span>
                     </button>
                     <button class="music-tab" onclick="switchMusicTab('energy')">
-                        <span>⚡</span><span>Energia</span>
+                        <span>âš¡</span><span>Energia</span>
                     </button>
                     <button class="music-tab" onclick="switchMusicTab('custom')">
-                        <span>🎧</span><span>Custom</span>
+                        <span>ðŸŽ§</span><span>Custom</span>
                     </button>
                 </div>
 
@@ -244,9 +244,9 @@
                     <div class="music-grid">
                         <div class="music-card" id="music-focus-1" data-id="focus-1">
                             <div class="music-card-header">
-                                <div class="music-card-icon focus">🧠</div>
+                                <div class="music-card-icon focus">ðŸ§ </div>
                                 <div>
-                                    <div class="music-card-title">Lofi Girl — Study Beats</div>
+                                    <div class="music-card-title">Lofi Girl â€” Study Beats</div>
                                     <div class="music-card-subtitle">24/7 lofi hip hop radio</div>
                                 </div>
                             </div>
@@ -254,15 +254,15 @@
                                 <iframe id="iframe-focus-1" src="https://www.youtube.com/embed/jfKfPfyJRdk?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('focus-1', 'Lofi Girl — Study Beats')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-focus-1" onclick="toggleFavorite('focus-1', 'Lofi Girl — Study Beats', 'jfKfPfyJRdk')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('focus-1', 'Lofi Girl â€” Study Beats')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-focus-1" onclick="toggleFavorite('focus-1', 'Lofi Girl â€” Study Beats', 'jfKfPfyJRdk')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                         <div class="music-card" id="music-focus-2" data-id="focus-2">
                             <div class="music-card-header">
-                                <div class="music-card-icon focus">🎹</div>
+                                <div class="music-card-icon focus">ðŸŽ¹</div>
                                 <div>
-                                    <div class="music-card-title">Deep Focus — Piano</div>
+                                    <div class="music-card-title">Deep Focus â€” Piano</div>
                                     <div class="music-card-subtitle">Concentration piano music</div>
                                 </div>
                             </div>
@@ -270,15 +270,15 @@
                                 <iframe id="iframe-focus-2" src="https://www.youtube.com/embed/WJ3-F02i2Ww?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('focus-2', 'Deep Focus — Piano')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-focus-2" onclick="toggleFavorite('focus-2', 'Deep Focus — Piano', 'WJ3-F02i2Ww')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('focus-2', 'Deep Focus â€” Piano')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-focus-2" onclick="toggleFavorite('focus-2', 'Deep Focus â€” Piano', 'WJ3-F02i2Ww')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                         <div class="music-card" id="music-focus-3" data-id="focus-3">
                             <div class="music-card-header">
-                                <div class="music-card-icon focus">🌧️</div>
+                                <div class="music-card-icon focus">ðŸŒ§ï¸</div>
                                 <div>
-                                    <div class="music-card-title">Rain & Thunder — Focus</div>
+                                    <div class="music-card-title">Rain & Thunder â€” Focus</div>
                                     <div class="music-card-subtitle">Nature sounds for deep work</div>
                                 </div>
                             </div>
@@ -286,8 +286,8 @@
                                 <iframe id="iframe-focus-3" src="https://www.youtube.com/embed/nXgFwx3oY1I?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('focus-3', 'Rain & Thunder — Focus')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-focus-3" onclick="toggleFavorite('focus-3', 'Rain & Thunder — Focus', 'nXgFwx3oY1I')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('focus-3', 'Rain & Thunder â€” Focus')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-focus-3" onclick="toggleFavorite('focus-3', 'Rain & Thunder â€” Focus', 'nXgFwx3oY1I')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                     </div>
@@ -298,9 +298,9 @@
                     <div class="music-grid">
                         <div class="music-card" id="music-relax-1" data-id="relax-1">
                             <div class="music-card-header">
-                                <div class="music-card-icon relax">🌊</div>
+                                <div class="music-card-icon relax">ðŸŒŠ</div>
                                 <div>
-                                    <div class="music-card-title">Ocean Waves — Meditation</div>
+                                    <div class="music-card-title">Ocean Waves â€” Meditation</div>
                                     <div class="music-card-subtitle">Calming ocean sounds</div>
                                 </div>
                             </div>
@@ -308,13 +308,13 @@
                                 <iframe id="iframe-relax-1" src="https://www.youtube.com/embed/1ZYbU82GVzY?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('relax-1', 'Ocean Waves — Meditation')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-relax-1" onclick="toggleFavorite('relax-1', 'Ocean Waves — Meditation', '1ZYbU82GVzY')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('relax-1', 'Ocean Waves â€” Meditation')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-relax-1" onclick="toggleFavorite('relax-1', 'Ocean Waves â€” Meditation', '1ZYbU82GVzY')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                         <div class="music-card" id="music-relax-2" data-id="relax-2">
                             <div class="music-card-header">
-                                <div class="music-card-icon relax">🍃</div>
+                                <div class="music-card-icon relax">ðŸƒ</div>
                                 <div>
                                     <div class="music-card-title">Forest Ambience</div>
                                     <div class="music-card-subtitle">Birds & wind in the trees</div>
@@ -324,8 +324,8 @@
                                 <iframe id="iframe-relax-2" src="https://www.youtube.com/embed/xNN7iTA57jM?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('relax-2', 'Forest Ambience')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-relax-2" onclick="toggleFavorite('relax-2', 'Forest Ambience', 'xNN7iTA57jM')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('relax-2', 'Forest Ambience')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-relax-2" onclick="toggleFavorite('relax-2', 'Forest Ambience', 'xNN7iTA57jM')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                     </div>
@@ -336,9 +336,9 @@
                     <div class="music-grid">
                         <div class="music-card" id="music-energy-1" data-id="energy-1">
                             <div class="music-card-header">
-                                <div class="music-card-icon energy">⚡</div>
+                                <div class="music-card-icon energy">âš¡</div>
                                 <div>
-                                    <div class="music-card-title">Epic Motivation — Epic Music</div>
+                                    <div class="music-card-title">Epic Motivation â€” Epic Music</div>
                                     <div class="music-card-subtitle">Powerful orchestral beats</div>
                                 </div>
                             </div>
@@ -346,15 +346,15 @@
                                 <iframe id="iframe-energy-1" src="https://www.youtube.com/embed/hHW1oY26kxQ?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('energy-1', 'Epic Motivation')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-energy-1" onclick="toggleFavorite('energy-1', 'Epic Motivation', 'hHW1oY26kxQ')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('energy-1', 'Epic Motivation')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-energy-1" onclick="toggleFavorite('energy-1', 'Epic Motivation', 'hHW1oY26kxQ')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                         <div class="music-card" id="music-energy-2" data-id="energy-2">
                             <div class="music-card-header">
-                                <div class="music-card-icon energy">🎸</div>
+                                <div class="music-card-icon energy">ðŸŽ¸</div>
                                 <div>
-                                    <div class="music-card-title">Upbeat Work — Rock/Pop</div>
+                                    <div class="music-card-title">Upbeat Work â€” Rock/Pop</div>
                                     <div class="music-card-subtitle">High energy for productivity</div>
                                 </div>
                             </div>
@@ -362,8 +362,8 @@
                                 <iframe id="iframe-energy-2" src="https://www.youtube.com/embed/5qap5aO4i9A?enablejsapi=1&origin=https://focusrocket.app" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                             </div>
                             <div class="music-card-actions">
-                                <button class="music-action-btn" onclick="playMusic('energy-2', 'Upbeat Work — Rock/Pop')">▶️ Play</button>
-                                <button class="music-action-btn" id="fav-energy-2" onclick="toggleFavorite('energy-2', 'Upbeat Work — Rock/Pop', '5qap5aO4i9A')">🤍 Preferito</button>
+                                <button class="music-action-btn" onclick="playMusic('energy-2', 'Upbeat Work â€” Rock/Pop')">â–¶ï¸ Play</button>
+                                <button class="music-action-btn" id="fav-energy-2" onclick="toggleFavorite('energy-2', 'Upbeat Work â€” Rock/Pop', '5qap5aO4i9A')">ðŸ¤ Preferito</button>
                             </div>
                         </div>
                     </div>
@@ -374,18 +374,18 @@
                     <div class="music-add-custom">
                                 <input type="text" class="input-field" id="customMusicUrl" placeholder="Incolla URL YouTube playlist/video o ID playlist/video">
                         <input type="text" class="input-field" id="customMusicName" placeholder="Nome della playlist (es. Mia Playlist Focus)" style="min-width:180px;">
-                        <button class="btn btn-primary btn-sm" onclick="addCustomMusic()">➕ Aggiungi</button>
+                        <button class="btn btn-primary btn-sm" onclick="addCustomMusic()">âž• Aggiungi</button>
                     </div>
                     <div class="music-grid" id="customMusicGrid">
-                        <div class="music-empty">Nessuna playlist custom ancora. Aggiungi il tuo primo link YouTube! 🎧</div>
+                        <div class="music-empty">Nessuna playlist custom ancora. Aggiungi il tuo primo link YouTube! ðŸŽ§</div>
                     </div>
                 </div>
 
                 <!-- FAVORITES SECTION -->
                 <div class="music-favorites-section">
-                    <div class="card-header"><span style="font-size:1.2rem;">⭐</span><span>Playlist Preferite</span></div>
+                    <div class="card-header"><span style="font-size:1.2rem;">â­</span><span>Playlist Preferite</span></div>
                     <div class="music-favorites-grid" id="favoritesGrid">
-                        <div class="music-empty">Nessun preferito ancora. Clicca 🤍 su una playlist per salvarla! 💾</div>
+                        <div class="music-empty">Nessun preferito ancora. Clicca ðŸ¤ su una playlist per salvarla! ðŸ’¾</div>
                     </div>
                 </div>
             </div>
@@ -394,77 +394,77 @@
         <!-- SETTINGS PANEL (toggleable) -->
         <div class="settings-section" id="settingsSection">
             <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
-                <button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⏱️ Torna al Timer</button>
+                <button class="btn btn-secondary btn-sm" onclick="toggleSettings()">â±ï¸ Torna al Timer</button>
             </div>
 
             <div class="settings-grid">
                 <!-- SOUND EFFECTS -->
                 <div class="settings-card">
                     <div class="settings-card-header">
-                        <span class="settings-card-header-icon">🎉</span>
-                        <span>Effetti Sonori — Completamento Task</span>
+                        <span class="settings-card-header-icon">ðŸŽ‰</span>
+                        <span>Effetti Sonori â€” Completamento Task</span>
                     </div>
 
                     <div class="sound-effect-item active" id="sound-default" onclick="selectSoundEffect('default')">
                         <input type="radio" name="soundEffect" class="sound-effect-radio" checked id="radio-default">
                         <label class="sound-effect-label" for="radio-default">
-                            <div>🔔 Tono Sintetizzato (Default)</div>
-                            <div class="sound-effect-desc">Arpeggio generato in tempo reale — sempre disponibile</div>
+                            <div>ðŸ”” Tono Sintetizzato (Default)</div>
+                            <div class="sound-effect-desc">Arpeggio generato in tempo reale â€” sempre disponibile</div>
                         </label>
-                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('default')">▶️ Test</button>
+                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('default')">â–¶ï¸ Test</button>
                     </div>
 
                     <div class="sound-effect-item" id="sound-applause" onclick="selectSoundEffect('applause')">
                         <input type="radio" name="soundEffect" class="sound-effect-radio" id="radio-applause">
                         <label class="sound-effect-label" for="radio-applause">
-                            <div>👏 Applauso di Folla</div>
-                            <div class="sound-effect-desc">Crowd cheering — grande celebrazione</div>
+                            <div>ðŸ‘ Applauso di Folla</div>
+                            <div class="sound-effect-desc">Crowd cheering â€” grande celebrazione</div>
                         </label>
-                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('applause')">▶️ Test</button>
+                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('applause')">â–¶ï¸ Test</button>
                     </div>
 
                     <div class="sound-effect-item" id="sound-fanfare" onclick="selectSoundEffect('fanfare')">
                         <input type="radio" name="soundEffect" class="sound-effect-radio" id="radio-fanfare">
                         <label class="sound-effect-label" for="radio-fanfare">
-                            <div>🎺 Fanfara Trionfale</div>
-                            <div class="sound-effect-desc">Trombe e celebrazione — grande vittoria</div>
+                            <div>ðŸŽº Fanfara Trionfale</div>
+                            <div class="sound-effect-desc">Trombe e celebrazione â€” grande vittoria</div>
                         </label>
-                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('fanfare')">▶️ Test</button>
+                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('fanfare')">â–¶ï¸ Test</button>
                     </div>
 
                     <div class="sound-effect-item" id="sound-coins" onclick="selectSoundEffect('coins')">
                         <input type="radio" name="soundEffect" class="sound-effect-radio" id="radio-coins">
                         <label class="sound-effect-label" for="radio-coins">
-                            <div>💰 Monete e Successo</div>
-                            <div class="sound-effect-desc">Cha-ching! — ricompensa gamification</div>
+                            <div>ðŸ’° Monete e Successo</div>
+                            <div class="sound-effect-desc">Cha-ching! â€” ricompensa gamification</div>
                         </label>
-                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('coins')">▶️ Test</button>
+                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('coins')">â–¶ï¸ Test</button>
                     </div>
 
                     <div class="sound-effect-item" id="sound-achievement" onclick="selectSoundEffect('achievement')">
                         <input type="radio" name="soundEffect" class="sound-effect-radio" id="radio-achievement">
                         <label class="sound-effect-label" for="radio-achievement">
-                            <div>🏆 Achievement Unlocked</div>
-                            <div class="sound-effect-desc">Suono classico da videogame — level up!</div>
+                            <div>ðŸ† Achievement Unlocked</div>
+                            <div class="sound-effect-desc">Suono classico da videogame â€” level up!</div>
                         </label>
-                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('achievement')">▶️ Test</button>
+                        <button class="sound-preview-btn" onclick="event.stopPropagation(); previewSoundEffect('achievement')">â–¶ï¸ Test</button>
                     </div>
 
                     <div class="volume-slider-container">
-                        <span style="font-size:0.85rem;">🔊 Volume</span>
+                        <span style="font-size:0.85rem;">ðŸ”Š Volume</span>
                         <input type="range" class="volume-slider" id="soundVolume" min="0" max="100" value="50" oninput="updateVolume(this.value)">
                         <span class="volume-value" id="volumeValue">50%</span>
                     </div>
 
                     <div class="sound-source-info">
-                        <p><strong>📥 Dove trovare altri effetti sonori:</strong></p>
-                        <p>• <a href="https://freesound.org" target="_blank">Freesound.org</a> — database collaborativo Creative Commons (gratis, registrazione richiesta)</p>
-                        <p>• <a href="https://pixabay.com/sound-effects/" target="_blank">Pixabay Sound Effects</a> — 269+ effetti royalty-free, no registrazione</p>
-                        <p>• <a href="https://mixkit.co/free-sound-effects/" target="_blank">Mixkit</a> — 41+ applause sounds, gratis per uso commerciale</p>
-                        <p>• <a href="https://uppbeat.io/sfx" target="_blank">Uppbeat</a> — effetti professionali, gratis con attribuzione</p>
-                        <p>• <a href="https://elevenlabs.io/sound-effects" target="_blank">ElevenLabs Sound Effects</a> — genera effetti con AI da descrizione testuale</p>
+                        <p><strong>ðŸ“¥ Dove trovare altri effetti sonori:</strong></p>
+                        <p>â€¢ <a href="https://freesound.org" target="_blank">Freesound.org</a> â€” database collaborativo Creative Commons (gratis, registrazione richiesta)</p>
+                        <p>â€¢ <a href="https://pixabay.com/sound-effects/" target="_blank">Pixabay Sound Effects</a> â€” 269+ effetti royalty-free, no registrazione</p>
+                        <p>â€¢ <a href="https://mixkit.co/free-sound-effects/" target="_blank">Mixkit</a> â€” 41+ applause sounds, gratis per uso commerciale</p>
+                        <p>â€¢ <a href="https://uppbeat.io/sfx" target="_blank">Uppbeat</a> â€” effetti professionali, gratis con attribuzione</p>
+                        <p>â€¢ <a href="https://elevenlabs.io/sound-effects" target="_blank">ElevenLabs Sound Effects</a> â€” genera effetti con AI da descrizione testuale</p>
                         <p style="margin-top:8px;font-size:0.75rem;color:var(--text-muted);">
-                            💡 <strong>Tip:</strong> Scarica file MP3/WAV e mettili in una cartella <code>/sounds/</code> nel tuo progetto. Poi modifica il codice per puntare ai file locali.
+                            ðŸ’¡ <strong>Tip:</strong> Scarica file MP3/WAV e mettili in una cartella <code>/sounds/</code> nel tuo progetto. Poi modifica il codice per puntare ai file locali.
                         </p>
                     </div>
                 </div>
@@ -472,7 +472,7 @@
                 <!-- TIMER SETTINGS -->
                 <div class="settings-card">
                     <div class="settings-card-header">
-                        <span class="settings-card-header-icon">⏱️</span>
+                        <span class="settings-card-header-icon">â±ï¸</span>
                         <span>Impostazioni Timer</span>
                     </div>
 
@@ -506,7 +506,7 @@
                 <!-- NOTIFICATIONS -->
                 <div class="settings-card">
                     <div class="settings-card-header">
-                        <span class="settings-card-header-icon">🔔</span>
+                        <span class="settings-card-header-icon">ðŸ””</span>
                         <span>Notifiche</span>
                     </div>
 
@@ -533,41 +533,38 @@
                 <!-- DATA MANAGEMENT -->
                 <div class="settings-card">
                     <div class="settings-card-header">
-                        <span class="settings-card-header-icon">💾</span>
+                        <span class="settings-card-header-icon">ðŸ’¾</span>
                         <span>Gestione Dati</span>
                     </div>
 
                     <div style="display:flex;flex-direction:column;gap:10px;">
-                        <button class="btn btn-secondary" onclick="exportAllData()">📥 Esporta tutti i dati (JSON)</button>
-                        <button class="btn btn-secondary" onclick="exportCSV()">📊 Esporta stats (CSV)</button>
-                        <button class="btn btn-secondary" onclick="importData()">📤 Importa dati (JSON)</button>
+                        <button class="btn btn-secondary" onclick="exportAllData()">ðŸ“¥ Esporta tutti i dati (JSON)</button>
+                        <button class="btn btn-secondary" onclick="exportCSV()">ðŸ“Š Esporta stats (CSV)</button>
+                        <button class="btn btn-secondary" onclick="importData()">ðŸ“¤ Importa dati (JSON)</button>
                         <div style="margin-top:8px;padding-top:12px;border-top:1px solid var(--border-light);">
-                            <button class="reset-btn" onclick="resetAllData()" style="width:100%;">🗑️ Reset COMPLETO (tutti i dati)</button>
+                            <button class="reset-btn" onclick="resetAllData()" style="width:100%;">ðŸ—‘ï¸ Reset COMPLETO (tutti i dati)</button>
                         </div>
                     </div>
                     <input type="file" id="importFileInput" style="display:none;" accept=".json" onchange="handleImportFile(event)">
                 </div>
             
-                <!-- OPENAI API -->
+                <!-- AI PROXY -->
                 <div class="settings-card">
                     <div class="settings-card-header">
                         <span class="settings-card-header-icon">🤖</span>
-                        <span>Body Doubling AI — OpenAI API</span>
+                        <span>Body Doubling AI</span>
                     </div>
                     <div class="settings-card-body">
-                        <div class="input-group" style="margin-bottom:12px;">
-                            <label style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--text-secondary);">OpenAI API Key</label>
-                            <input type="password" id="openaiApiKey" class="input-field" placeholder="sk-..." value="" style="width:100%;font-family:inherit;">
-                            <small style="color:var(--text-muted);font-size:0.75rem;">La chiave è salvata solo in localStorage sul tuo dispositivo.</small>
+                        <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;margin-bottom:12px;color:var(--text-secondary);font-size:0.8rem;line-height:1.4;">
+                            L AI usa una Supabase Edge Function: la chiave OpenAI resta server-side e le funzioni AI sono disponibili solo dopo il login.
                         </div>
                         <div class="input-group" style="margin-bottom:12px;">
                             <label style="display:block;margin-bottom:6px;font-size:0.85rem;color:var(--text-secondary);">Modello AI</label>
                             <select id="openaiModel" class="select-field" style="width:100%;font-family:inherit;">
-                                <option value="gpt-4.1-nano" selected>gpt-4.1-nano — Più economico ($0.10/$0.40)</option>
-                                <option value="gpt-4o-mini">gpt-4o-mini — Budget ($0.15/$0.60)</option>
-                                <option value="gpt-5.4-nano">gpt-5.4-nano — Ultra-cheap ($0.20/$1.25)</option>
-                                <option value="gpt-4.1-mini">gpt-4.1-mini — Bilanciato ($0.40/$1.60)</option>
-                                <option value="gpt-5.4-mini">gpt-5.4-mini — Potente ($0.75/$4.50)</option>
+                                <option value="gpt-4.1-nano" selected>gpt-4.1-nano - piu economico ($0.10/$0.40)</option>
+                                <option value="gpt-4o-mini">gpt-4o-mini - budget ($0.15/$0.60)</option>
+                                <option value="gpt-4.1-mini">gpt-4.1-mini - bilanciato ($0.40/$1.60)</option>
+                                <option value="gpt-5.4-mini">gpt-5.4-mini - potente ($0.75/$4.50)</option>
                             </select>
                         </div>
                         <div class="checkbox-item" style="margin-bottom:12px;">
@@ -580,17 +577,17 @@
                         </div>
                         <div class="checkbox-item" style="margin-bottom:12px;">
                             <input type="checkbox" id="bodyDoublingAiSound" checked>
-                            <label for="bodyDoublingAiSound">🔔 Suono quando l'AI risponde nel widget</label>
+                            <label for="bodyDoublingAiSound">Suono quando l AI risponde nel widget</label>
                         </div>
                         <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;margin-top:12px;">
-                            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">💰 Stima costi questa sessione</div>
+                            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">Stima costi questa sessione</div>
                             <div id="sessionCostDisplay" style="font-size:1.1rem;font-weight:700;color:var(--accent-orange);">$0.0000</div>
                             <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">~4 chiamate API per sessione (pre + 2 check-in + debrief)</div>
                         </div>
                         <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;margin-top:8px;">
-                            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">📊 Costo totale da inizio</div>
+                            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">Costo totale da inizio</div>
                             <div id="totalCostDisplay" style="font-size:1.1rem;font-weight:700;color:var(--accent-green);">$0.0000</div>
-                            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Persiste in localStorage</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Stima locale + log server-side se la tabella Supabase e presente</div>
                         </div>
                     </div>
                 </div>
@@ -600,17 +597,17 @@
                 <!-- LEADERBOARD SECTION (toggleable) -->
         <div class="leaderboard-section" id="leaderboardSection">
             <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
-                <button class="btn btn-secondary btn-sm" onclick="toggleLeaderboard()">⏱️ Torna al Timer</button>
+                <button class="btn btn-secondary btn-sm" onclick="toggleLeaderboard()">â±ï¸ Torna al Timer</button>
             </div>
 
             <div class="leaderboard-header">
-                <h2>🏆 Focus Rocket Leaderboard</h2>
-                <p>Chi è il più focuse del reame? Competizione amichevole per motivarsi a vicenda!</p>
-                <div class="your-rank" id="yourRankDisplay">🚀 Tu: Livello 1 · 0 XP</div>
+                <h2>ðŸ† Focus Rocket Leaderboard</h2>
+                <p>Chi Ã¨ il piÃ¹ focuse del reame? Competizione amichevole per motivarsi a vicenda!</p>
+                <div class="your-rank" id="yourRankDisplay">ðŸš€ Tu: Livello 1 Â· 0 XP</div>
             </div>
 
             <div class="level-bar" id="levelBar">
-                <div class="level-avatar" id="levelAvatar">🚀</div>
+                <div class="level-avatar" id="levelAvatar">ðŸš€</div>
                 <div class="level-info">
                     <div class="level-name" id="levelName">Rocket Novice</div>
                     <div class="level-sub" id="levelSub">Completa blocchi per salire di livello</div>
@@ -621,16 +618,16 @@
 
             <div class="leaderboard-tabs">
                 <button class="lb-tab active" onclick="switchLbTab('global')">
-                    <span>🌍</span><span>Global</span>
+                    <span>ðŸŒ</span><span>Global</span>
                 </button>
                 <button class="lb-tab" onclick="switchLbTab('weekly')">
-                    <span>📅</span><span>Questa Settimana</span>
+                    <span>ðŸ“…</span><span>Questa Settimana</span>
                 </button>
                 <button class="lb-tab" onclick="switchLbTab('friends')">
-                    <span>👥</span><span>Amici</span>
+                    <span>ðŸ‘¥</span><span>Amici</span>
                 </button>
                 <button class="lb-tab" onclick="switchLbTab('achievements')">
-                    <span>🏅</span><span>Obiettivi</span>
+                    <span>ðŸ…</span><span>Obiettivi</span>
                 </button>
             </div>
 
@@ -656,19 +653,19 @@
                 <div class="card">
                     <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
                         <input type="text" class="input-field" id="friendName" placeholder="Nome amico da aggiungere..." style="flex:1;min-width:150px;">
-                        <button class="btn btn-primary btn-sm" onclick="addFriend()">➕ Aggiungi</button>
+                        <button class="btn btn-primary btn-sm" onclick="addFriend()">âž• Aggiungi</button>
                     </div>
                     <table class="leaderboard-table" id="lbTableFriends">
                         <thead><tr><th style="width:50px;">#</th><th>Amico</th><th style="text-align:center;">Score</th><th style="text-align:center;">Streak</th><th style="text-align:center;">Status</th></tr></thead>
                         <tbody id="lbBodyFriends"></tbody>
                     </table>
-                    <div id="friendsEmpty" class="music-empty" style="padding:20px;">Nessun amico ancora. Aggiungi il tuo primo amico! 👥</div>
+                    <div id="friendsEmpty" class="music-empty" style="padding:20px;">Nessun amico ancora. Aggiungi il tuo primo amico! ðŸ‘¥</div>
                 </div>
             </div>
 
             <div class="lb-tab-content" id="lb-tab-achievements" style="display:none;">
                 <div class="card">
-                    <div class="card-header"><span style="font-size:1.2rem;">🏅</span><span>Obiettivi e Badge</span></div>
+                    <div class="card-header"><span style="font-size:1.2rem;">ðŸ…</span><span>Obiettivi e Badge</span></div>
                     <div class="achievements-grid" id="achievementsGrid"></div>
                 </div>
             </div>
@@ -678,14 +675,14 @@
         <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px;" class="main-grid" id="mainGrid">
             <!-- LEFT: TASKS -->
             <div class="card">
-                <div class="card-header"><span style="font-size:1.2rem;">🎯</span><span>Scomponi il Mostro</span></div>
+                <div class="card-header"><span style="font-size:1.2rem;">ðŸŽ¯</span><span>Scomponi il Mostro</span></div>
                 <div class="task-input-group">
                     <input type="text" class="input-field" id="bigTask" placeholder="Descrivi il tuo task enorme...">
                 </div>
                 <div style="display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
-                    <button class="btn btn-primary btn-sm" onclick="breakDownTask()">🔨 Scomponi</button>
-                    <button class="btn btn-secondary btn-sm" onclick="addManualTask()">➕ Manuale</button>
-                    <button class="btn btn-secondary btn-sm" onclick="clearTasks()">🗑️ Pulisci</button>
+                    <button class="btn btn-primary btn-sm" onclick="breakDownTask()">ðŸ”¨ Scomponi</button>
+                    <button class="btn btn-secondary btn-sm" onclick="addManualTask()">âž• Manuale</button>
+                    <button class="btn btn-secondary btn-sm" onclick="clearTasks()">ðŸ—‘ï¸ Pulisci</button>
                 </div>
                 <div class="micro-tasks-list" id="microTasks"></div>
             </div>
@@ -693,7 +690,7 @@
             <!-- RIGHT: TIMER -->
             <div class="card timer-card">
                 <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;font-size:1rem;font-weight:600;">
-                    <span style="font-size:1.2rem;">⏱️</span><span>Timer Pomodoro</span>
+                    <span style="font-size:1.2rem;">â±ï¸</span><span>Timer Pomodoro</span>
                 </div>
                 <div class="timer-wrapper">
                     <svg class="progress-ring" width="260" height="260" viewBox="0 0 260 260">
@@ -703,18 +700,18 @@
                     <div class="timer-display" id="timerDisplay">25:00</div>
                 </div>
                 <div class="timer-messages" id="timerMessages"></div>
-                <div class="timer-label" id="timerLabel">Pronto al decollo? 🚀</div>
+                <div class="timer-label" id="timerLabel">Pronto al decollo? ðŸš€</div>
                 <div class="mode-selector">
-                    <button class="mode-btn active" onclick="setMode(25)">🍅 25m</button>
-                    <button class="mode-btn" onclick="setMode(35)">🚀 35m</button>
-                    <button class="mode-btn" onclick="setMode(15)">⚡ 15m</button>
-                    <button class="mode-btn" onclick="setMode(5)">☕ 5m</button>
-                    <button class="mode-btn" style="border-color:var(--accent-purple);color:var(--accent-purple);" onclick="setMode(1.5)">🧪 90s</button>
+                    <button class="mode-btn active" onclick="setMode(25)">ðŸ… 25m</button>
+                    <button class="mode-btn" onclick="setMode(35)">ðŸš€ 35m</button>
+                    <button class="mode-btn" onclick="setMode(15)">âš¡ 15m</button>
+                    <button class="mode-btn" onclick="setMode(5)">â˜• 5m</button>
+                    <button class="mode-btn" style="border-color:var(--accent-purple);color:var(--accent-purple);" onclick="setMode(1.5)">ðŸ§ª 90s</button>
                 </div>
                 <div class="timer-controls">
-                    <button class="btn btn-primary" id="startBtn" onclick="toggleTimer()"><span id="startIcon">▶️</span><span id="startText">Start</span></button>
-                    <button class="btn btn-secondary" onclick="resetTimer()">🔄 Reset</button>
-                    <button class="btn btn-secondary" onclick="completeEarly()">✅ Done</button>
+                    <button class="btn btn-primary" id="startBtn" onclick="toggleTimer()"><span id="startIcon">â–¶ï¸</span><span id="startText">Start</span></button>
+                    <button class="btn btn-secondary" onclick="resetTimer()">ðŸ”„ Reset</button>
+                    <button class="btn btn-secondary" onclick="completeEarly()">âœ… Done</button>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-item"><div class="stat-value" id="statBlocks">0</div><div class="stat-label">Blocchi</div></div>
@@ -729,24 +726,24 @@
     <!-- BODY DOUBLING WIDGET -->
     <div id="bodyDoublingWidget" class="body-doubling-widget" style="display:none;">
         <div class="bd-widget-header" onclick="toggleBodyDoublingWidget()">
-            <span class="bd-widget-avatar">🤖</span>
+            <span class="bd-widget-avatar">ðŸ¤–</span>
             <span class="bd-widget-title">Body Double</span>
             <span class="bd-widget-status" id="bdStatus">Offline</span>
-            <button class="bd-widget-close" onclick="event.stopPropagation(); hideBodyDoublingWidget()">×</button>
+            <button class="bd-widget-close" onclick="event.stopPropagation(); hideBodyDoublingWidget()">Ã—</button>
         </div>
         <div class="bd-widget-chat" id="bdChat">
             <div class="bd-message bd-message-system" id="bdWelcomeMsg">
-                <div class="bd-message-text">Ciao! Sono il tuo Body Double AI. Ti accompagno durante questa sessione di focus. 💪</div>
+                <div class="bd-message-text">Ciao! Sono il tuo Body Double AI. Ti accompagno durante questa sessione di focus. ðŸ’ª</div>
                 <div class="bd-message-time">ora</div>
             </div>
         </div>
         <div class="bd-widget-input">
             <input type="text" id="bdInput" placeholder="Scrivi un messaggio..." onkeydown="if(event.key==='Enter')sendBodyDoubleMessage()">
-            <button onclick="sendBodyDoubleMessage()">➤</button>
+            <button onclick="sendBodyDoubleMessage()">âž¤</button>
         </div>
     </div>
     <button id="bodyDoublingToggleBtn" class="body-doubling-toggle-btn" onclick="showBodyDoublingWidget()" style="display:flex;">
-        <span>🤖</span>
+        <span>ðŸ¤–</span>
     </button>
 
 
@@ -754,14 +751,14 @@
     <div class="calendar-popup-overlay" id="calendarPopupOverlay" onclick="closeCalendarPopup(event)">
         <div class="calendar-popup" onclick="event.stopPropagation()">
             <div class="calendar-popup-header">
-                <h3>📆 Calendario Focus</h3>
+                <h3>ðŸ“† Calendario Focus</h3>
                 <button class="calendar-popup-close" onclick="closeCalendarPopup()">&times;</button>
             </div>
 
             <div class="calendar-popup-nav">
-                <button class="btn btn-sm btn-secondary" onclick="changeCalendarMonth(-1)">◀ Mese prec.</button>
+                <button class="btn btn-sm btn-secondary" onclick="changeCalendarMonth(-1)">â—€ Mese prec.</button>
                 <span class="calendar-popup-title" id="calendarPopupTitle">Maggio 2026</span>
-                <button class="btn btn-sm btn-secondary" onclick="changeCalendarMonth(1)">Mese succ. ▶</button>
+                <button class="btn btn-sm btn-secondary" onclick="changeCalendarMonth(1)">Mese succ. â–¶</button>
             </div>
 
             <div class="calendar-popup-grid" id="calendarPopupGrid"></div>
@@ -769,11 +766,11 @@
             <div class="calendar-popup-stats" id="calendarPopupStats"></div>
 
             <div class="calendar-popup-custom">
-                <div style="font-size:0.85rem;font-weight:600;margin-bottom:8px;color:var(--text-secondary);">🔍 Ricerca personalizzata</div>
+                <div style="font-size:0.85rem;font-weight:600;margin-bottom:8px;color:var(--text-secondary);">ðŸ” Ricerca personalizzata</div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                     <input type="date" class="input-field" id="calendarDateFrom" style="min-width:120px;flex:1;">
                     <input type="date" class="input-field" id="calendarDateTo" style="min-width:120px;flex:1;">
-                    <button class="btn btn-primary btn-sm" onclick="searchCustomDateRange()">🔍 Cerca</button>
+                    <button class="btn btn-primary btn-sm" onclick="searchCustomDateRange()">ðŸ” Cerca</button>
                 </div>
             </div>
         </div>
@@ -784,7 +781,7 @@
     <script src="https://unpkg.com/dexie@4.4.2/dist/dexie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Modular JS — caricati in ordine di dipendenza -->
+    <!-- Modular JS â€” caricati in ordine di dipendenza -->
     <script src="js/supabase-config.js"></script> <!-- Supabase URL/key + client init -->
     <script src="js/db.js"></script>       <!-- IndexedDB layer + Supabase sync -->
     <script src="js/app.js"></script>      <!-- Core: AudioEngine, state, FX, utilities -->
@@ -792,10 +789,11 @@
     <script src="js/settings.js"></script> <!-- Settings panel, sound FX, export/import -->
     <script src="js/music.js"></script>    <!-- Music player, embeds, favorites -->
     <script src="js/leaderboard.js"></script> <!-- Leaderboard, levels, achievements -->
+    <script src="js/auth.js"></script>     <!-- Supabase Auth + sync controls -->
+    <script src="js/ai-proxy.js"></script> <!-- Supabase Edge Function AI proxy -->
     <script src="js/tasks.js"></script>    <!-- Task breakdown, AI decomposition -->
     <script src="js/timer.js"></script>    <!-- Pomodoro timer, strict mode, reward -->
     <script src="js/bd-ai.js"></script>    <!-- Body Doubling AI (hooks timer.js) -->
-    <script src="js/auth.js"></script>     <!-- Supabase Auth + sync controls -->
     <script src="js/init.js"></script>     <!-- DOMContentLoaded, event listeners -->
 
 </body>
