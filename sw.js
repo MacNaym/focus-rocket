@@ -1,6 +1,6 @@
 /* Focus Rocket PWA Service Worker */
 
-const CACHE_VERSION = 'focus-rocket-v7-5-1';
+const CACHE_VERSION = 'focus-rocket-v8-0-1';
 const APP_SHELL = [
     './',
     './index.html',
@@ -14,6 +14,7 @@ const APP_SHELL = [
     './js/music.js',
     './js/leaderboard.js',
     './js/auth.js',
+    './js/pricing.js',
     './js/ai-proxy.js',
     './js/tasks.js',
     './js/timer.js',

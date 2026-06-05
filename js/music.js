@@ -96,6 +96,7 @@ async function toggleMusic() {
     if (leaderboardVisible) toggleLeaderboard();
     if (settingsVisible) toggleSettings();
     if (metricsVisible) toggleMetrics();
+    if (pricingVisible) closePricingSection();
 
     musicVisible = !musicVisible;
     const btn = document.getElementById('musicToggle');

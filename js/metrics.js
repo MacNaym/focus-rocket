@@ -33,6 +33,7 @@
             if (leaderboardVisible) toggleLeaderboard();
             if (settingsVisible) toggleSettings();
             if (musicVisible) toggleMusic();
+            if (pricingVisible) closePricingSection();
 
             metricsVisible = !metricsVisible;
             const btn = document.getElementById('metricsToggle');

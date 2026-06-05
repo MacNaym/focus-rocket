@@ -21,6 +21,7 @@
             if (leaderboardVisible) toggleLeaderboard();
             if (musicVisible) toggleMusic();
             if (metricsVisible) toggleMetrics();
+            if (pricingVisible) closePricingSection();
 
             settingsVisible = !settingsVisible;
             const btn = document.getElementById('settingsToggle');

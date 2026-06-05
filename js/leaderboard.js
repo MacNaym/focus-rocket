@@ -70,6 +70,7 @@
             if (settingsVisible) toggleSettings();
             if (musicVisible) toggleMusic();
             if (metricsVisible) toggleMetrics();
+            if (pricingVisible) closePricingSection();
 
             leaderboardVisible = !leaderboardVisible;
             const btn = document.getElementById('leaderboardToggle');
