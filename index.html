@@ -608,6 +608,7 @@
                 <div class="pricing-kicker">Focus Rocket Pro</div>
                 <h2>AI, metriche e progetti multipli per lavorare meglio.</h2>
                 <p>Il piano Free resta generoso. Pro sblocca le funzioni che hanno costi server e valore avanzato.</p>
+                <div class="pricing-status" id="pricingAccountStatus">Accedi per vedere il tuo piano e passare a Pro.</div>
                 <div class="pricing-segments">
                     <button class="pricing-segment active" id="pricingSegment-monthly" onclick="setPricingInterval('monthly')">Mensile</button>
                     <button class="pricing-segment" id="pricingSegment-yearly" onclick="setPricingInterval('yearly')">Annuale</button>
@@ -627,7 +628,7 @@
                         <li>Sync account</li>
                         <li>PWA installabile</li>
                     </ul>
-                    <button class="btn btn-secondary" onclick="showToast('Sei gia nel piano Free', 'info')">Piano attuale</button>
+                    <button class="btn btn-secondary" id="freePlanButton" onclick="showToast('Il downgrade manuale arrivera dopo il portale cliente Stripe', 'info')">Piano attuale</button>
                 </div>
 
                 <div class="pricing-card pro">
@@ -643,7 +644,7 @@
                         <li>Limiti AI inclusi nel prezzo</li>
                         <li>Future feature Pro incluse</li>
                     </ul>
-                    <button class="btn btn-primary" onclick="startProCheckout()">Passa a Pro</button>
+                    <button class="btn btn-primary" id="proCheckoutButton" onclick="startProCheckout()">Passa a Pro</button>
                     <div class="pricing-smallprint">Prezzo early adopter. BYOK previsto come opzione futura.</div>
                 </div>
             </div>
@@ -846,6 +847,7 @@
     <script src="js/music.js"></script>    <!-- Music player, embeds, favorites -->
     <script src="js/leaderboard.js"></script> <!-- Leaderboard, levels, achievements -->
     <script src="js/auth.js"></script>     <!-- Supabase Auth + sync controls -->
+    <script src="js/billing.js"></script>  <!-- Billing profile + Free/Pro gates -->
     <script src="js/pricing.js"></script>  <!-- Pricing page + Stripe Checkout -->
     <script src="js/ai-proxy.js"></script> <!-- Supabase Edge Function AI proxy -->
     <script src="js/tasks.js"></script>    <!-- Task breakdown, AI decomposition -->

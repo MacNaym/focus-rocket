@@ -37,6 +37,11 @@ async function callAiProxy({ messages, model, maxTokens = 250, temperature = 0.7
         throw new Error('Accedi per usare le funzioni AI');
     }
 
+    if (typeof ensureProFeature === 'function') {
+        const allowed = await ensureProFeature('le funzioni AI');
+        if (!allowed) throw new Error('Funzione disponibile con Focus Rocket Pro');
+    }
+
     const { data, error } = await client.functions.invoke(AI_PROXY_FUNCTION, {
         body: {
             feature,

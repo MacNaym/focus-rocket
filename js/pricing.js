@@ -58,6 +58,7 @@ function renderPricingState() {
     if (amount) amount.textContent = price;
     if (period) period.textContent = '/' + cadence;
     if (pricingNote) pricingNote.textContent = note;
+    if (typeof renderBillingState === 'function') renderBillingState();
 }
 
 async function startProCheckout(interval = pricingInterval) {
@@ -70,6 +71,12 @@ async function startProCheckout(interval = pricingInterval) {
     const { data } = await client.auth.getSession();
     if (!data?.session?.user) {
         showToast('Accedi per passare a Pro', 'warn');
+        return;
+    }
+
+    if (typeof isProUser === 'function' && isProUser()) {
+        showToast('Il piano Pro e gia attivo', 'info');
+        renderPricingState();
         return;
     }
 
@@ -93,7 +100,12 @@ function handleCheckoutReturn() {
     const checkout = params.get('checkout');
     if (!checkout) return;
 
-    if (checkout === 'success') showToast('Pagamento completato. Il piano Pro sara attivo tra poco.', 'success');
+    if (checkout === 'success') {
+        showToast('Pagamento completato. Il piano Pro sara attivo tra poco.', 'success');
+        if (typeof refreshBillingProfile === 'function') {
+            setTimeout(() => refreshBillingProfile({ silent: true }), 1500);
+        }
+    }
     if (checkout === 'cancel') showToast('Checkout annullato', 'info');
 
     params.delete('checkout');

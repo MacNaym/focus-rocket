@@ -23,8 +23,13 @@ async function initAuth() {
     }
 
     authUser = data?.session?.user || null;
-    if (authUser) initSync(client, authUser);
-    else disableSync();
+    if (authUser) {
+        initSync(client, authUser);
+        if (typeof refreshBillingProfile === 'function') await refreshBillingProfile({ silent: true });
+    } else {
+        disableSync();
+        if (typeof resetBillingProfile === 'function') resetBillingProfile();
+    }
 
     renderAuthState(authUser);
 
@@ -34,8 +39,10 @@ async function initAuth() {
             if (authUser) {
                 initSync(client, authUser);
                 await syncAllData();
+                if (typeof refreshBillingProfile === 'function') await refreshBillingProfile({ silent: true });
             } else {
                 disableSync();
+                if (typeof resetBillingProfile === 'function') resetBillingProfile();
             }
             renderAuthState(authUser);
         });
@@ -193,6 +200,7 @@ async function signOut() {
     }
 
     disableSync();
+    if (typeof resetBillingProfile === 'function') resetBillingProfile();
     renderAuthState(null);
     showToast('Logout effettuato', 'info');
 }
