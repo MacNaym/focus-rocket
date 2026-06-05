@@ -39,7 +39,7 @@
         .logo-icon { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; animation: rocket-bounce 2s ease-in-out infinite; box-shadow: 0 6px 18px rgba(80, 70, 255, 0.22); }
         @keyframes rocket-bounce { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
         .nav-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .theme-toggle, .sound-toggle, .strict-toggle-btn, .gentle-toggle, .metrics-toggle, .music-toggle {
+        .theme-toggle, .sound-toggle, .strict-toggle-btn, .gentle-toggle, .metrics-toggle, .music-toggle, .pricing-toggle {
             background: var(--bg-card); border: 2px solid var(--border); border-radius: 50px;
             padding: 8px 14px; cursor: pointer; font-size: 0.85rem; color: var(--text-secondary);
             transition: var(--transition); display: flex; align-items: center; gap: 6px; font-family: inherit;
@@ -55,7 +55,7 @@
         .leaderboard-toggle.active {
             border-color: var(--accent-orange); background: var(--accent-orange-bg); color: var(--accent-orange);
         }
-        .theme-toggle:hover, .sound-toggle:hover, .strict-toggle-btn:hover, .gentle-toggle:hover, .metrics-toggle:hover, .music-toggle:hover {
+        .theme-toggle:hover, .sound-toggle:hover, .strict-toggle-btn:hover, .gentle-toggle:hover, .metrics-toggle:hover, .music-toggle:hover, .pricing-toggle:hover {
             border-color: var(--accent-orange); color: var(--accent-orange);
         }
         .sound-toggle.active { background: var(--accent-green); border-color: var(--accent-green); color: white; }
@@ -132,24 +132,8 @@
         .metrics-section.active { display: block; animation: metrics-fade 0.4s ease-out; }
         .pricing-section { display: none; }
         .pricing-section.active { display: block; animation: metrics-fade 0.4s ease-out; }
-        .pricing-toggle {
-            border: 1px solid var(--border-light);
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            border-radius: 8px;
-            padding: 8px 12px;
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .pricing-toggle:hover, .pricing-toggle.active {
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-            transform: translateY(-1px);
+        .pricing-toggle.active {
+            background: var(--accent-green); border-color: var(--accent-green); color: white;
         }
         .pricing-header {
             max-width: 760px;

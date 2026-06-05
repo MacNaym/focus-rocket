@@ -4,7 +4,7 @@ App di produttività personale con focus timer, task breakdown AI, musica integr
 
 ## 🌐 Live Demo
 
-https://[TUO-USERNAME].github.io/focus-rocket/
+https://macnaym.github.io/focus-rocket/
 
 ## 📁 Struttura
 
@@ -44,8 +44,8 @@ Ogni push su `main` triggera il deploy automatico.
 
 - [x] Blocco 7.0 — Refactoring modulare
 - [x] Blocco 7.1 — IndexedDB layer
-- [ ] Blocco 7.2 — Supabase auth & sync
-- [ ] Blocco 7.3 — API proxy OpenAI
+- [x] Blocco 7.2 - Supabase auth & sync
+- [x] Blocco 7.3 - API proxy OpenAI
 - [ ] Blocco 8.0 — Monetizzazione
 
 ## 📄 License
